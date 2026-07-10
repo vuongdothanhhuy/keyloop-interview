@@ -4,6 +4,7 @@ import { CurrencyPipe, DatePipe, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AgingBadge } from '../../ui/aging-badge/aging-badge';
 import { ActionLogDialog } from '../../ui/action-log-dialog/action-log-dialog';
 import { VehicleStore } from '../../data-access/vehicle.store';
@@ -12,9 +13,13 @@ import { VEHICLE_ACTION_LABELS } from '../../models/vehicle-action.model';
 
 @Component({
   selector: 'app-vehicle-detail',
-  imports: [NgOptimizedImage, CurrencyPipe, DatePipe, MatButtonModule, AgingBadge],
+  imports: [NgOptimizedImage, CurrencyPipe, DatePipe, MatButtonModule, MatProgressSpinnerModule, AgingBadge],
   template: `
-    @if (vehicle(); as v) {
+    @if (store.loading()) {
+      <mat-spinner diameter="32" aria-label="Loading vehicle" role="status" />
+    } @else if (store.error(); as error) {
+      <p class="error" role="alert">Couldn't load vehicle: {{ error }}</p>
+    } @else if (vehicle(); as v) {
       <h1>{{ v.make }} {{ v.model }} ({{ v.year }})</h1>
       <img
         [ngSrc]="v.imageUrl"
