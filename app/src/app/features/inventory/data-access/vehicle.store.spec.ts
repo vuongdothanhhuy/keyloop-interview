@@ -1,6 +1,6 @@
 // app/src/app/features/inventory/data-access/vehicle.store.spec.ts
 import { TestBed } from '@angular/core/testing';
-import { of, throwError } from 'rxjs';
+import { Observable, of, Subject, throwError } from 'rxjs';
 import { VehicleStore } from './vehicle.store';
 import { VehicleService } from './vehicle.service';
 import { VehicleActionService } from './vehicle-action.service';
@@ -38,6 +38,7 @@ describe('VehicleStore', () => {
     getVehicles?: () => ReturnType<VehicleService['getVehicles']>;
     getAllActions?: () => ReturnType<VehicleActionService['getAllActions']>;
     logAction?: () => ReturnType<VehicleActionService['logAction']>;
+    now?: () => Date;
   }) {
     TestBed.configureTestingModule({
       providers: [
@@ -62,7 +63,7 @@ describe('VehicleStore', () => {
                 } satisfies VehicleAction)),
           },
         },
-        { provide: ClockService, useValue: { now: () => FIXED_NOW } },
+        { provide: ClockService, useValue: { now: overrides?.now ?? (() => FIXED_NOW) } },
       ],
     });
     return TestBed.inject(VehicleStore);
@@ -167,5 +168,44 @@ describe('VehicleStore', () => {
     });
     expect(store.error()).toBe('save failed');
     expect(store.actions()).toEqual(before); // rolled back, no phantom action left behind
+  });
+
+  it('logAction() rollback only removes its own optimistic entry, not a different concurrent action that already succeeded', () => {
+    const subjects: Subject<VehicleAction>[] = [];
+    let tick = 0;
+    const store = setup({
+      logAction: (): Observable<VehicleAction> => {
+        const subject = new Subject<VehicleAction>();
+        subjects.push(subject);
+        return subject.asObservable();
+      },
+      // Each logAction() call reads clock.now() twice (optimisticId, then createdAt).
+      // Advancing on every read gives the two concurrent calls distinct optimisticIds,
+      // matching real-world behavior where clock.now() moves forward between calls.
+      now: () => new Date(FIXED_NOW.getTime() + tick++),
+    });
+    store.load();
+
+    store.logAction({ vehicleId: 'V1', actionType: 'manager_review', note: 'will fail', loggedBy: 'Alex' });
+    store.logAction({ vehicleId: 'V1', actionType: 'price_reduction_planned', note: 'will succeed', loggedBy: 'Alex' });
+    expect(store.actions().length).toBe(2);
+
+    // The second call resolves successfully first.
+    subjects[1].next({
+      id: 'real-b',
+      vehicleId: 'V1',
+      actionType: 'price_reduction_planned',
+      note: 'will succeed',
+      loggedBy: 'Alex',
+      createdAt: FIXED_NOW.toISOString(),
+    });
+    subjects[1].complete();
+
+    // The first call then fails.
+    subjects[0].error(new Error('save failed'));
+
+    expect(store.error()).toBe('save failed');
+    expect(store.actions().some((a) => a.id === 'real-b')).toBe(true); // survives the other call's rollback
+    expect(store.actions().length).toBe(1); // only the failed call's own optimistic entry was removed
   });
 });
