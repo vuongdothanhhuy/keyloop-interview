@@ -9,5 +9,9 @@ export const routes: Routes = [
         (m) => m.InventoryDashboard,
       ),
   },
-  // 'inventory/:vin' is added in Task 19 once VehicleDetail exists.
+  {
+    path: 'inventory/:vin',
+    loadComponent: () =>
+      import('./features/inventory/feature/vehicle-detail/vehicle-detail').then((m) => m.VehicleDetail),
+  },
 ];
