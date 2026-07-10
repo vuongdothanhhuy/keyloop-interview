@@ -28,6 +28,12 @@ describe('getInventoryAgeDays', () => {
   it('accepts a Date object as well as an ISO string', () => {
     expect(getInventoryAgeDays(new Date('2026-06-09T00:00:00.000Z'), asOf)).toBe(30);
   });
+
+  it('is timezone-independent (uses UTC calendar days, not local time)', () => {
+    const intake = new Date('2026-04-10T01:00:00.000Z');
+    const asOfInstant = new Date('2026-07-09T23:00:00.000Z');
+    expect(getInventoryAgeDays(intake, asOfInstant)).toBe(90);
+  });
 });
 
 describe('isAgingStock', () => {
