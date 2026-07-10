@@ -101,6 +101,37 @@ describe('VehicleStore', () => {
     expect(store.filteredVehicles().map((v) => v.id)).toEqual(['V2']);
   });
 
+  it('updateFilter() clears a model selection that is no longer valid for a newly-selected make', () => {
+    const store = setup({
+      getVehicles: () =>
+        of([
+          vehicle({ id: 'V1', make: 'Toyota', model: 'Corolla' }),
+          vehicle({ id: 'V2', make: 'Ford', model: 'Focus' }),
+        ]),
+    });
+    store.load();
+    store.updateFilter({ model: 'Corolla' });
+    expect(store.filter().model).toBe('Corolla');
+
+    store.updateFilter({ make: 'Ford' });
+    expect(store.filter().make).toBe('Ford');
+    expect(store.filter().model).toBeNull(); // 'Corolla' isn't a Ford model — stale selection cleared
+  });
+
+  it('updateFilter() keeps a model selection that is still valid for the new make', () => {
+    const store = setup({
+      getVehicles: () =>
+        of([
+          vehicle({ id: 'V1', make: 'Toyota', model: 'Corolla' }),
+          vehicle({ id: 'V2', make: 'Toyota', model: 'RAV4' }),
+        ]),
+    });
+    store.load();
+    store.updateFilter({ make: 'Toyota', model: 'Corolla' });
+    store.updateFilter({ make: 'Toyota' }); // re-selecting the same make shouldn't clear a valid model
+    expect(store.filter().model).toBe('Corolla');
+  });
+
   it('agingVehicles() only contains vehicles past the 90-day threshold', () => {
     const store = setup({
       getVehicles: () =>

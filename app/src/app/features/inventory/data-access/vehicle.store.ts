@@ -95,7 +95,21 @@ export class VehicleStore {
   }
 
   updateFilter(partial: Partial<VehicleFilter>): void {
-    this.state.update((s) => ({ ...s, filter: { ...s.filter, ...partial } }));
+    this.state.update((s) => {
+      const filter = { ...s.filter, ...partial };
+      // Changing make can narrow the model dropdown (see availableModels above) out from
+      // under a currently-selected model — clear a model that's no longer valid for the new
+      // make, otherwise the UI's dropdown and the applied filter silently diverge.
+      if ('make' in partial && filter.make && filter.model) {
+        const modelsForMake = new Set(
+          s.vehicles.filter((v) => v.make === filter.make).map((v) => v.model),
+        );
+        if (!modelsForMake.has(filter.model)) {
+          filter.model = null;
+        }
+      }
+      return { ...s, filter };
+    });
   }
 
   logAction(input: NewVehicleAction): void {
