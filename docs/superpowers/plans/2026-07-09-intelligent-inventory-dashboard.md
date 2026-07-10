@@ -3214,7 +3214,19 @@ test('logs a new action from the detail page and sees it appear in the history',
   await page.getByRole('link', { name: /View \/ Log Action/i }).first().click();
   await page.getByRole('button', { name: 'Log Action' }).click();
 
-  await page.getByLabel('Action').selectOption({ label: 'Price Reduction Planned' });
+  // getByLabel('Action') is ambiguous here — verified during Task 20 execution (2026-07-10)
+  // by actually running the suite, not assumed: getByLabel does substring, case-insensitive
+  // matching by default, and the dialog's own accessible name (from aria-labelledby ->
+  // <h2 mat-dialog-title>Log an Action</h2>) contains the substring "Action" too, so it's a
+  // strict-mode violation (matches both the mat-dialog-container and the <select>). Passing
+  // { exact: true } doesn't fix it either — it times out, because getByLabel derives the label
+  // text from the wrapping <label>Action<select>...<option>s...</select></label>'s raw DOM
+  // textContent, which includes the options' rendered text, not just "Action". The select's
+  // true accessible name (confirmed via page.getByRole('dialog').ariaSnapshot()) is the clean
+  // "Action", so anchoring on role + accessible name sidesteps the mismatch entirely.
+  await page.getByRole('combobox', { name: 'Action', exact: true }).selectOption({
+    label: 'Price Reduction Planned',
+  });
   await page.getByLabel('Note').fill('Playwright e2e test note');
   await page.getByRole('button', { name: 'Save' }).click();
 
