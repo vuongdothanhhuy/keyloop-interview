@@ -79,6 +79,7 @@ The user asked to target the **latest Angular (v22)** and provided `docs/best-pr
 8. **`json-server` pinned to stable `0.17.4`**, not the in-progress `1.0.0-beta.x` rewrite, for reproducibility in a graded submission.
 9. **Zoneless + Vitest are used because they are Angular 22's actual defaults**, not because this plan opted into an experimental feature — confirmed against the CLI's own schematics.
 10. **`NgOptimizedImage` against `picsum.photos` mock images** will emit a soft "unrecognized image loader" advisory in the console; this is expected and left as-is (a real deployment would point `imageUrl` at a CDN with a registered `NgOptimizedImage` loader, or configure a custom one).
+11. **"Log Action" is available on every vehicle, not restricted to aging stock**, even though the PDF's requirement 3 literally says "for each aging vehicle." Added after an external PR review (2026-07-10) raised this as a previously-undecided ambiguity: a manager plausibly wants to log a proactive action before a vehicle crosses the 90-day threshold, and gating the button on `isAging` would only remove flexibility without serving any requirement the assessment evaluates. See `docs/SYSTEM_DESIGN.md`'s "Note on Ambiguity" item 11 for the same resolution.
 
 ---
 
