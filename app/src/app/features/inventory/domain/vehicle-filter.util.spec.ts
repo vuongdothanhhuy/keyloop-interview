@@ -38,9 +38,10 @@ describe('matchesFilter', () => {
     expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, make: 'Ford' })).toBe(false);
   });
 
-  it('filters by model', () => {
+  it('filters by model (case-insensitive)', () => {
     const v = makeVehicle({ model: 'Corolla' });
     expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, model: 'Corolla' })).toBe(true);
+    expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, model: 'corolla' })).toBe(true);
     expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, model: 'RAV4' })).toBe(false);
   });
 
@@ -71,6 +72,16 @@ describe('matchesFilter', () => {
     const failingFilter = { ...EMPTY_VEHICLE_FILTER, make: 'Toyota', model: 'RAV4' };
     expect(matchesFilter(v, passingFilter)).toBe(true);
     expect(matchesFilter(v, failingFilter)).toBe(false);
+  });
+
+  it('rejects a search match on a non-aging vehicle when agingOnly is also set', () => {
+    const v = makeVehicle({ make: 'Toyota', isAging: false });
+    expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, search: 'toyota', agingOnly: true })).toBe(false);
+  });
+
+  it('rejects a make match when status also fails to match', () => {
+    const v = makeVehicle({ make: 'Ford', status: 'reserved' });
+    expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, make: 'Ford', status: 'in_stock' })).toBe(false);
   });
 });
 
