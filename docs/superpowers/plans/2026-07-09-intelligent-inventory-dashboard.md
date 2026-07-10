@@ -2103,8 +2103,14 @@ describe('VehicleFilterBar', () => {
     const emitted: Partial<typeof EMPTY_VEHICLE_FILTER>[] = [];
     fixture.componentInstance.filterChange.subscribe((v) => emitted.push(v));
 
-    const toggle = fixture.debugElement.query(By.css('[data-testid="aging-only-toggle"]'))
-      .nativeElement as HTMLInputElement;
+    // MatSlideToggle binds its click handler to the internal `<button class="mdc-switch">`,
+    // not the `<mat-slide-toggle>` host — a native .click() on the host can't reach a
+    // descendant's listener (bubbling only goes up), so the click must target the actual
+    // interactive control, same as a real user click would land on. Corrected during Task 15
+    // execution (2026-07-10) after this literal query failed against the real
+    // @angular/material@22.0.4 DOM structure.
+    const toggle = fixture.debugElement.query(By.css('[data-testid="aging-only-toggle"] button'))
+      .nativeElement as HTMLButtonElement;
     toggle.click();
     await fixture.whenStable();
 
