@@ -1,4 +1,4 @@
-import { Service, signal } from '@angular/core';
+import { Service, Signal, signal } from '@angular/core';
 
 export interface CurrentUser {
   name: string;
@@ -13,5 +13,11 @@ export interface CurrentUser {
  */
 @Service()
 export class CurrentUserService {
-  readonly currentUser = signal<CurrentUser>({ name: 'Alex Manager', role: 'manager' });
+  // Typed as the read-only `Signal`, not the inferred `WritableSignal` — consumers must
+  // not be able to mutate the mocked identity, matching VehicleStore's pattern of never
+  // exposing a writable signal publicly.
+  readonly currentUser: Signal<CurrentUser> = signal<CurrentUser>({
+    name: 'Alex Manager',
+    role: 'manager',
+  });
 }
