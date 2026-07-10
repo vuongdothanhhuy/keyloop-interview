@@ -38,6 +38,10 @@ export class VehicleStore {
   // recent request in flight, guarding against out-of-order resolution when load() is
   // called again before a prior call's HTTP responses have arrived.
   private latestRequestId = 0;
+  // Guarantees optimisticId uniqueness even when clock.now() returns the same instant
+  // for two logAction() calls issued within the same millisecond (or under a fake/frozen
+  // clock in tests) — timestamp alone is not a reliable uniqueness source.
+  private optimisticIdCounter = 0;
 
   readonly vehicles = computed(() => this.state().vehicles);
   readonly actions = computed(() => this.state().actions);
@@ -73,7 +77,15 @@ export class VehicleStore {
     }).subscribe({
       next: ({ vehicles, actions }) => {
         if (requestId !== this.latestRequestId) return; // superseded by a newer load()
-        this.state.update((s) => ({ ...s, vehicles, actions, loading: false }));
+        this.state.update((s) => ({
+          ...s,
+          vehicles,
+          // Preserve any locally-pending optimistic action(s) a concurrent logAction() appended
+          // while this load() was in flight — otherwise a load() resolving mid-logAction() would
+          // silently erase the optimistic entry before the real HTTP response arrives to replace it.
+          actions: [...actions, ...s.actions.filter((a) => a.id.startsWith('optimistic-'))],
+          loading: false,
+        }));
       },
       error: (err: Error) => {
         if (requestId !== this.latestRequestId) return;
@@ -87,7 +99,7 @@ export class VehicleStore {
   }
 
   logAction(input: NewVehicleAction): void {
-    const optimisticId = `optimistic-${this.clock.now().getTime()}`;
+    const optimisticId = `optimistic-${this.clock.now().getTime()}-${this.optimisticIdCounter++}`;
     // Stamp createdAt here, client-side: json-server auto-generates `id` on POST but
     // does NOT stamp `createdAt`, and enrichVehicles()/latestActionFor() rely on that
     // field for ordering. The same createdAt is used for the optimistic entry and the
