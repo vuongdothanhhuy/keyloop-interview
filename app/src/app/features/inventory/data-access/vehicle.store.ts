@@ -87,7 +87,6 @@ export class VehicleStore {
   }
 
   logAction(input: NewVehicleAction): void {
-    const previousActions = this.state().actions;
     const optimisticId = `optimistic-${this.clock.now().getTime()}`;
     // Stamp createdAt here, client-side: json-server auto-generates `id` on POST but
     // does NOT stamp `createdAt`, and enrichVehicles()/latestActionFor() rely on that
@@ -105,7 +104,11 @@ export class VehicleStore {
           actions: s.actions.map((a) => (a.id === optimisticId ? saved : a)),
         })),
       error: (err: Error) =>
-        this.state.update((s) => ({ ...s, actions: previousActions, error: err.message })),
+        this.state.update((s) => ({
+          ...s,
+          actions: s.actions.filter((a) => a.id !== optimisticId),
+          error: err.message,
+        })),
     });
   }
 }
