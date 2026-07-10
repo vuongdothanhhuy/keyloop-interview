@@ -465,7 +465,13 @@ import { writeFileSync } from 'node:fs';
 faker.seed(42); // deterministic across regenerations
 
 const DEALERSHIP_ID = 'DEALER-001';
-const TODAY = new Date('2026-07-09T00:00:00.000Z'); // fixed "as-of" for reproducible seed data
+// Anchored to real "now" at generation time, not a fixed historical date: the app's
+// ClockService always reports real wall-clock time, so a fixed anchor here would silently
+// drift out of sync with it (the "exactly 90 days, not aging" boundary vehicle would flip
+// to aging the very next day after regenerating). Re-run `npm run seed` to refresh this
+// anchor whenever you want the boundary-case vehicles to reflect "today" again — faker's
+// fixed seed (below) still makes every other field deterministic across re-runs.
+const TODAY = new Date();
 const IMAGE_WIDTH = 400;
 const IMAGE_HEIGHT = 300;
 
@@ -581,15 +587,21 @@ Expected output: `Seeded 130 vehicles and <N> actions.` and `mock-server/db.json
 
 - [ ] **Step 3: Sanity-check the boundary cases landed correctly**
 
-Run:
+Since `TODAY` is real "now" at generation time (not a fixed date — see the note above, corrected 2026-07-10 after a review pass caught the original fixed-date version silently drifting out of sync with the app's own `ClockService`), verify the boundary using the same UTC-day-normalized math `inventory-age.util.ts` actually uses, not a naive millisecond difference against a non-midnight `new Date()` (naive math over- or under-counts by a day depending on the time of day the check itself runs):
+
 ```bash
 node -e "
 const db = require('./db.json');
-console.log('v90 intakeDate', db.vehicles[0].intakeDate, '-> expect NOT aging');
-console.log('v91 intakeDate', db.vehicles[1].intakeDate, '-> expect aging');
+function startOfDayUTC(d) { return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()); }
+function ageDays(intakeDate, asOf) {
+  return Math.max(Math.floor((startOfDayUTC(asOf) - startOfDayUTC(new Date(intakeDate))) / 86400000), 0);
+}
+const now = new Date();
+console.log('v0 intakeDate', db.vehicles[0].intakeDate, '-> ageDays =', ageDays(db.vehicles[0].intakeDate, now), '(expect exactly 90, NOT aging)');
+console.log('v1 intakeDate', db.vehicles[1].intakeDate, '-> ageDays =', ageDays(db.vehicles[1].intakeDate, now), '(expect exactly 91, aging)');
 "
 ```
-Expected: two ISO dates roughly 90 and 91 days before `2026-07-09`.
+Expected: `ageDays = 90` for `v0` and `ageDays = 91` for `v1`, exactly, relative to whenever this check is actually run (not a fixed historical date).
 
 - [ ] **Step 4: Commit**
 

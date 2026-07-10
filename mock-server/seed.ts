@@ -5,7 +5,13 @@ import { writeFileSync } from 'node:fs';
 faker.seed(42); // deterministic across regenerations
 
 const DEALERSHIP_ID = 'DEALER-001';
-const TODAY = new Date('2026-07-09T00:00:00.000Z'); // fixed "as-of" for reproducible seed data
+// Anchored to real "now" at generation time, not a fixed historical date: the app's
+// ClockService always reports real wall-clock time, so a fixed anchor here would silently
+// drift out of sync with it (the "exactly 90 days, not aging" boundary vehicle would flip
+// to aging the very next day after regenerating). Re-run `npm run seed` to refresh this
+// anchor whenever you want the boundary-case vehicles to reflect "today" again — faker's
+// fixed seed (below) still makes every other field deterministic across re-runs.
+const TODAY = new Date();
 const IMAGE_WIDTH = 400;
 const IMAGE_HEIGHT = 300;
 
