@@ -60,4 +60,42 @@ describe('InventoryDashboard', () => {
     fixture.componentInstance.onFilterChange({ agingOnly: true });
     expect(updateFilterSpy).toHaveBeenCalledWith({ agingOnly: true });
   });
+
+  it('gives the photo and actions columns an accessible (non-visual) label', async () => {
+    await fixture.whenStable();
+    const headerCells = fixture.nativeElement.querySelectorAll('th');
+    expect(headerCells[0].textContent?.trim()).toBe('Photo');
+    expect(headerCells[headerCells.length - 1].textContent?.trim()).toBe('Actions');
+  });
+
+  it('gives the loading spinner an accessible label', async () => {
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [InventoryDashboard],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideRouter([]),
+        {
+          provide: VehicleStore,
+          useValue: {
+            load: vi.fn(),
+            updateFilter: vi.fn(),
+            loading: signal(true),
+            error: signal(null),
+            filter: signal({ search: '', make: null, model: null, status: null, agingOnly: false }),
+            filteredVehicles: signal([]),
+            kpis: signal({ totalVehicles: 0, agingCount: 0, agingPercentage: 0, averageAgeDays: 0 }),
+            availableMakes: signal([]),
+            availableModels: signal([]),
+          },
+        },
+      ],
+    });
+    const loadingFixture = TestBed.createComponent(InventoryDashboard);
+    await loadingFixture.whenStable();
+
+    const spinner = loadingFixture.nativeElement.querySelector('mat-spinner');
+    expect(spinner?.getAttribute('aria-label')).toBe('Loading inventory');
+    expect(spinner?.getAttribute('role')).toBe('status');
+  });
 });

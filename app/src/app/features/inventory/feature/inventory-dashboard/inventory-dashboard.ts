@@ -31,7 +31,7 @@ import { VehicleFilter } from '../../models/vehicle-filter.model';
     />
 
     @if (store.loading()) {
-      <mat-spinner diameter="32" />
+      <mat-spinner diameter="32" aria-label="Loading inventory" role="status" />
     } @else if (store.error(); as error) {
       <p class="error" role="alert">Couldn't load inventory: {{ error }}</p>
     } @else if (store.filteredVehicles().length === 0) {
@@ -39,7 +39,15 @@ import { VehicleFilter } from '../../models/vehicle-filter.model';
     } @else {
       <table>
         <thead>
-          <tr><th></th><th>VIN</th><th>Make</th><th>Model</th><th>Age</th><th>Status</th><th></th></tr>
+          <tr>
+            <th><span class="visually-hidden">Photo</span></th>
+            <th>VIN</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Age</th>
+            <th>Status</th>
+            <th><span class="visually-hidden">Actions</span></th>
+          </tr>
         </thead>
         <tbody>
           @for (vehicle of store.filteredVehicles(); track vehicle.id) {
@@ -72,6 +80,17 @@ import { VehicleFilter } from '../../models/vehicle-filter.model';
       width: 64px;
       height: auto;
       border-radius: 4px;
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
   `,
 })
