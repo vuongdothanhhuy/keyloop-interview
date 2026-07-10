@@ -1,3 +1,4 @@
+// app/src/app/features/inventory/models/vehicle-filter.model.ts
 import { VehicleStatus } from './vehicle.model';
 
 export interface VehicleFilter {

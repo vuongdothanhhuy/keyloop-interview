@@ -1,3 +1,4 @@
+// app/src/app/features/inventory/models/vehicle.model.ts
 export type VehicleStatus = 'in_stock' | 'reserved' | 'sold' | 'in_transit';
 
 export type BodyType = 'Sedan' | 'SUV' | 'Truck' | 'Hatchback' | 'Coupe' | 'Van';

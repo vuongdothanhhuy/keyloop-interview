@@ -1,3 +1,4 @@
+// app/src/app/features/inventory/models/vehicle-action.model.ts
 export type VehicleActionType =
   | 'price_reduction_planned'
   | 'marketing_push'
