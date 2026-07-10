@@ -2768,7 +2768,7 @@ Expected: FAIL — module not found.
 
 ```typescript
 // app/src/app/core/current-user.service.ts
-import { Service, signal } from '@angular/core';
+import { Service, Signal, signal } from '@angular/core';
 
 export interface CurrentUser {
   name: string;
@@ -2783,7 +2783,15 @@ export interface CurrentUser {
  */
 @Service()
 export class CurrentUserService {
-  readonly currentUser = signal<CurrentUser>({ name: 'Alex Manager', role: 'manager' });
+  // Typed as the read-only `Signal`, not the inferred `WritableSignal` — consumers must
+  // not be able to mutate the mocked identity, matching VehicleStore's pattern of never
+  // exposing a writable signal publicly. (Corrected 2026-07-10: the original code sample
+  // here left this as the inferred WritableSignal despite this file's own "Produces" line
+  // declaring `Signal<...>` — a real, if easily-fixed, type-safety gap caught by review.)
+  readonly currentUser: Signal<CurrentUser> = signal<CurrentUser>({
+    name: 'Alex Manager',
+    role: 'manager',
+  });
 }
 ```
 
