@@ -17,13 +17,18 @@ Core requirements for Scenario B (verbatim from the PDF — do not weaken these)
 
 ## Current status
 
-**Not yet implemented.** The repository currently contains the challenge PDF, a README stub, a fully detailed implementation plan, and a set of Angular guidance resources the user has added. Before writing any code, read:
+**Fully implemented, tested, and documented.** All 23 tasks in the master plan are complete on branch `implement-inventory-dashboard` (not yet merged to `main` — that decision is the user's to make). The app builds (`ng build`), all tests pass (19 files / 83 unit+component tests, 3/3 Playwright e2e), and both required documentation deliverables (`docs/SYSTEM_DESIGN.md`, `README.md`) are written and fact-checked against the actual code. Before making further changes, read:
 
-- **`docs/superpowers/plans/2026-07-09-intelligent-inventory-dashboard.md`** — the master plan. 23 TDD tasks with complete code for every file (models, pure business-logic functions, HTTP services, the state store, UI components, mock-server seed data, tests). **This is the source of truth for how to build the app — follow it task-by-task rather than re-deriving the architecture.** It has been revised once already (originally targeted Angular 21 + `@ngrx/signals`; now targets **Angular 22** with a plain-signals store — see its "Angular 22 Revision" section for why, verified against the actual published npm packages, not assumed).
-- **`docs/best-practices.md`** — the user's Angular/TypeScript style rules. Every Angular code change in this repo must follow it. Key rules that diverge from older Angular conventions: no explicit `standalone: true` (default), no explicit `ChangeDetectionStrategy.OnPush` (default in v22), prefer `@Service()` over `@Injectable({providedIn:'root'})`, prefer Signal Forms (`@angular/forms/signals`) for new forms, `input()`/`output()` functions not decorators, `host` object instead of `@HostBinding`/`@HostListener`, `NgOptimizedImage` for static images, no `ngClass`/`ngStyle`, no assumed globals like `new Date()`, `inject()` not constructor injection, `update()`/`set()` on signals not `mutate()`.
-- **`KeyloopCodingChallange.pdf`** — the original assessment brief. Several requirements are deliberately ambiguous; the plan documents the assumptions made — do not silently reinterpret them.
+- **`docs/superpowers/plans/2026-07-09-intelligent-inventory-dashboard.md`** — the master plan. All 23 tasks are checked off. **This remains the source of truth for the architecture and the reasoning behind it** — it now also documents, in place, every real bug a code-review pass found during implementation and how each was fixed (see the "Task N Execution Corrections" / "Codex Review Pass" sections scattered through the file, and the "Task Dependency Graph & Parallelization Guide" / "Commit Strategy: Red/Green Checkpoints" sections near the top). If you're picking up further work on this codebase, read the relevant task's corrections section before assuming the plan's originally-drafted code sample is exactly what's on disk — several were corrected after real execution surfaced discrepancies.
+- **`README.md`**'s "AI Collaboration Narrative" section — a real, specific account of every substantive bug the review process caught (a timezone bug in the core aging calculation, two concurrency bugs in `VehicleStore`, a production-build-only dependency failure, a mutable-signal type gap, a production page silently shipping `ng new` scaffold placeholder content, and more) and how each was verified and fixed. Read this before assuming any given file is bug-free just because it has a passing test suite — several of these bugs had passing tests until a review pass specifically went looking for the failure mode the given tests didn't cover.
+- **`docs/best-practices.md`** — the user's Angular/TypeScript style rules. Every Angular file in this repo follows it. Key rules that diverge from older Angular conventions: no explicit `standalone: true` (default), no explicit `ChangeDetectionStrategy.OnPush` (default in v22), prefer `@Service()` over `@Injectable({providedIn:'root'})`, prefer Signal Forms (`@angular/forms/signals`) for new forms, `input()`/`output()` functions not decorators, `host` object instead of `@HostBinding`/`@HostListener`, `NgOptimizedImage` for static images, no `ngClass`/`ngStyle`, no assumed globals like `new Date()`, `inject()` not constructor injection, `update()`/`set()` on signals not `mutate()`.
+- **`KeyloopCodingChallange.pdf`** — the original assessment brief. Several requirements were deliberately ambiguous; `docs/SYSTEM_DESIGN.md`'s "Note on Ambiguity" section documents the assumptions made — do not silently reinterpret them.
 
-The user's global CLAUDE.md enforces a strict planning/implementation split: **do not write application code until explicitly told to move from planning to execution.**
+The user's global CLAUDE.md enforces a strict planning/implementation split: **the planning-phase restriction has been explicitly lifted for this branch** (the user moved from planning to execution and the plan was fully executed) — but treat any *new* feature work beyond what's already implemented as its own planning decision, not an implicit continuation.
+
+## A note on trusting this codebase's test suites
+
+Every file in this repo has a passing test suite, and several of them *also* had a passing test suite at the exact moment they contained a real bug — the given tests, faithfully transcribed from the plan, simply didn't happen to exercise the failure mode. This was caught by an independent review pass that went beyond the given tests: reasoning through concurrent-call interleavings, testing under non-default timezones, running the actual production build instead of trusting `ng serve`, and exercising a real browser instead of only component-isolated unit tests. If you're extending this codebase, don't treat "tests pass" as sufficient evidence of correctness for anything touching concurrency, date/timezone handling, or the app's root shell/routing — those are exactly the categories where this repo's own history shows tests passed right up until someone looked harder.
 
 ## Git commit conventions
 
@@ -50,8 +55,10 @@ This overrides the default Claude Code git-commit instructions (which normally a
 - **All "current time" business logic is deterministic.** Nothing calls `new Date()` directly except `ClockService`. Every pure function that needs "now" takes `asOf: Date` as an explicit parameter.
 - **Signal Forms (`@angular/forms/signals`) for the one real form** (the action-log dialog), bound to **native** HTML elements rather than Angular Material form controls — Material's CVA compatibility with `[formField]` isn't confirmed, so Material is used for chrome only (dialogs, buttons, tables, chips, cards) and never for actual form inputs.
 - **No real authentication.** A mocked `CurrentUserService` simulates one logged-in manager.
+- **`VehicleStore.load()` and `.logAction()` have specific concurrency-safety mechanisms that are load-bearing, not incidental** — a request-id guard in `load()` (discards a stale response if a newer `load()` superseded it), a per-call `optimisticId` (a timestamp plus a monotonic counter, not the timestamp alone) for `logAction()`'s optimistic entries, a targeted rollback that removes only the failed call's own entry rather than resetting to a snapshot, and `load()`'s success handler preserving any still-pending optimistic entries rather than overwriting the whole `actions` array. All four exist because a review pass found and fixed real bugs in earlier, simpler versions of this code — don't simplify them back without re-deriving why they're there (see `git log --oneline -- app/src/app/features/inventory/data-access/vehicle.store.ts`).
+- **`app/package.json` must list `@angular/animations` as a real dependency**, not just rely on it being an optional peer dependency of `@angular/platform-browser`. `provideAnimationsAsync()` needs it at bundle time; `ng serve`'s dev bundler won't catch its absence, only `ng build` (production) will.
 
-## Intended project layout
+## Project layout
 
 Two npm packages side by side (see the plan's "Project & File Structure" section for the full tree):
 
@@ -75,16 +82,14 @@ Inside `app/src/app/features/inventory/`, code is organized by responsibility, n
 
 Component/service file names follow the 2025 style-guide convention referenced by the `angular-developer` skill: no `.component.`/`.service.` infix in filenames for components (`aging-badge.ts`, not `aging-badge.component.ts`); class names never carry a `Component` suffix.
 
-Note: the repository's current `.gitignore` assumes a single Angular project scaffolded at the repo root. Update it when scaffolding per the plan's `app/`+`mock-server/` split.
+The root `.gitignore` was rewritten during scaffolding (Task 1) from the single-project-at-root patterns `ng new` generates to unanchored patterns covering both `app/` and `mock-server/` as sibling packages — `app/package-lock.json` and `mock-server/package-lock.json` are both gitignored by design (not an oversight if you notice them missing from a commit).
 
-## Commands (once scaffolded per the plan)
-
-There is no buildable code yet. Once Task 1 has been executed, the working commands will be:
+## Commands
 
 ```bash
 # Mock backend
 cd mock-server && npm install
-npm run seed     # regenerate db.json deterministically
+npm run seed     # regenerate db.json deterministically (faker.seed(42) -> 130 vehicles, 67 actions)
 npm run serve    # json-server on :3001, with latency/error middleware
 
 # Angular app (second terminal)
@@ -94,16 +99,18 @@ npm start                    # ng serve on :4200, proxied to :3001 via proxy.con
 # Verification
 npx tsc --noEmit -p tsconfig.json
 npx eslint src --max-warnings=0
-npm test                     # `ng test` -> Vitest (default runner in Angular 22)
-npm test -- --coverage
-npx playwright test          # critical-path e2e (filter -> detail -> log action)
+npm test                     # `ng test` -> Vitest (default runner in Angular 22) — 19 files, 83 tests
+npm test -- --coverage       # requires @vitest/coverage-v8 (already a devDependency)
+npx playwright test          # critical-path e2e (filter -> detail -> log action) — 3 tests
 npx ng build --configuration production
 ```
 
 To run a single Vitest spec file: `npx ng test --include="**/path/to/file.spec.ts"`.
 
+If `mock-server`'s `npm run serve` fails with `EMFILE: too many open files` (its `--watch` flag uses a real fs watcher), raise the open-file-descriptor limit first: `ulimit -n 4096`.
+
 ## Deliverables checklist (per the PDF's "Deliverables & Submission")
 
-1. **System Design Document** (`docs/SYSTEM_DESIGN.md`) — architecture diagram, component roles, data flow, tech justifications, observability strategy, a GenAI-design-phase section, and documented ambiguity-resolution assumptions.
-2. **Working code** (this repo) — README.md with build/run/test instructions, a dedicated **AI Collaboration Narrative** section, and a test suite validating core business logic (the `domain/` and `data-access/` spec files).
-3. **Video submission** — out of scope for any Claude Code session; the user records this themselves.
+1. ✅ **System Design Document** (`docs/SYSTEM_DESIGN.md`) — architecture diagram, component roles, data flow, tech justifications, "Build for the Future" (scalability/performance/reliability/maintainability), observability strategy, a GenAI-design-phase section, and documented ambiguity-resolution assumptions. 8 subsections total.
+2. ✅ **Working code** (this repo) — `README.md` with build/run/test instructions, a dedicated **AI Collaboration Narrative** section (including a real, specific account of every bug the review process found and fixed), and a test suite validating core business logic (the `domain/` and `data-access/` spec files — 7 spec files, part of the 19-file / 83-test full suite).
+3. **Video submission** — out of scope for any Claude Code session; the user records this themselves. Not yet done as of this writing.
