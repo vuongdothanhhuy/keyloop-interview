@@ -25,6 +25,16 @@ Core requirements for Scenario B (verbatim from the PDF — do not weaken these)
 
 The user's global CLAUDE.md enforces a strict planning/implementation split: **do not write application code until explicitly told to move from planning to execution.**
 
+## Git commit conventions
+
+This repo is a graded take-home submission, and its commit history is part of what gets reviewed. Every commit made in this repo (by Claude Code or otherwise) must:
+
+- **Never include a `Co-Authored-By` trailer or any other line attributing the commit to Claude, Claude Code, or Anthropic.** Author identity is the user's own git config (`Huy Vương`) — do not override it or add a co-author.
+- **Not use a conventional-commit type prefix** (`feat:`, `fix:`, `docs:`, `chore:`, `test:`, etc.). Write a plain, descriptive subject line instead.
+- **Be generated from the actual diff/content of that commit**, not copied boilerplate — describe what the commit contains in the committer's voice.
+
+This overrides the default Claude Code git-commit instructions (which normally append a `Co-Authored-By: Claude ...` trailer) for this repository specifically.
+
 ## Angular tooling available in this repo
 
 - **`angular-developer` / `angular-new-app` Claude Code skills** are installed (via `npx skills add https://github.com/angular/skills`, living under `.claude/skills/`). Invoke `angular-developer` before writing any Angular code that touches reactivity (signals/`linkedSignal`/`resource`), forms, DI, routing, testing, or styling — its reference docs were used to verify several of the API claims in the master plan (`@Service()`, Signal Forms, host bindings, zoneless testing patterns) directly against this session's downloaded `@angular/core@22.0.6` package, since Angular 22 shipped after most model training cutoffs. Invoke `angular-new-app` specifically for the `ng new` scaffolding step.
