@@ -2947,7 +2947,10 @@ export class ActionLogDialog {
     required(schemaPath.actionType, { message: 'Please select an action' });
   });
 
-  save(): Promise<void> {
+  // Verified during Task 19 execution against the real @angular/forms@22.0.6 types:
+  // submit() resolves Promise<boolean> (whether the form was valid and submitted), not
+  // Promise<void> as originally assumed here — a type-only correction, no behavior change.
+  save(): Promise<boolean> {
     return submit(this.actionForm, async () => {
       const { actionType, note } = this.formModel();
       this.dialogRef.close({
