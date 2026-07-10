@@ -4,7 +4,7 @@ export const AGING_THRESHOLD_DAYS = 90;
 export type AgingSeverity = 'fresh' | 'watch' | 'aging' | 'critical';
 
 function startOfDay(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
 }
 
 /** Number of whole days between `intakeDate` and `asOf`, clamped to >= 0. */
