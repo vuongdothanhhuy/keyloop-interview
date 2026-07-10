@@ -208,4 +208,65 @@ describe('VehicleStore', () => {
     expect(store.actions().some((a) => a.id === 'real-b')).toBe(true); // survives the other call's rollback
     expect(store.actions().length).toBe(1); // only the failed call's own optimistic entry was removed
   });
+
+  it('load() resolving mid-logAction() does not erase the pending optimistic entry', () => {
+    const actionsSubject = new Subject<VehicleAction[]>();
+    const logActionSubject = new Subject<VehicleAction>();
+    const store = setup({
+      getAllActions: () => actionsSubject.asObservable(),
+      logAction: () => logActionSubject.asObservable(),
+    });
+
+    store.load(); // in flight: getAllActions() hasn't resolved yet
+
+    store.logAction({
+      vehicleId: 'V1',
+      actionType: 'price_reduction_planned',
+      note: 'note',
+      loggedBy: 'Alex',
+    });
+    expect(store.actions().length).toBe(1);
+    const optimisticId = store.actions()[0].id;
+    expect(optimisticId.startsWith('optimistic-')).toBe(true);
+
+    // load()'s own HTTP response now arrives, with a real actions list that does NOT
+    // include the not-yet-persisted optimistic entry.
+    actionsSubject.next([]);
+    actionsSubject.complete();
+
+    // The optimistic entry must survive load()'s commit.
+    expect(store.actions().some((a) => a.id === optimisticId)).toBe(true);
+    expect(store.actions().length).toBe(1);
+
+    // logAction()'s own HTTP response then arrives and should replace the optimistic
+    // entry with the persisted one, not silently no-op because it's already gone.
+    const saved: VehicleAction = {
+      id: 'real-1',
+      vehicleId: 'V1',
+      actionType: 'price_reduction_planned',
+      note: 'note',
+      loggedBy: 'Alex',
+      createdAt: FIXED_NOW.toISOString(),
+    };
+    logActionSubject.next(saved);
+    logActionSubject.complete();
+
+    expect(store.actions().length).toBe(1);
+    expect(store.actions()[0].id).toBe('real-1');
+  });
+
+  it('two logAction() calls within the same clock instant get distinct optimistic ids', () => {
+    const store = setup({
+      logAction: () => new Subject<VehicleAction>().asObservable(), // left pending on purpose
+      now: () => FIXED_NOW, // frozen clock: both calls read the exact same instant
+    });
+    store.load();
+
+    store.logAction({ vehicleId: 'V1', actionType: 'manager_review', note: 'first', loggedBy: 'Alex' });
+    store.logAction({ vehicleId: 'V1', actionType: 'price_reduction_planned', note: 'second', loggedBy: 'Alex' });
+
+    expect(store.actions().length).toBe(2);
+    const ids = store.actions().map((a) => a.id);
+    expect(new Set(ids).size).toBe(2); // must be distinct even though the clock didn't advance
+  });
 });
