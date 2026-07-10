@@ -95,4 +95,5 @@ See [`docs/SYSTEM_DESIGN.md#note-on-ambiguity`](docs/SYSTEM_DESIGN.md#note-on-am
 ## Known Issues
 
 - Every `npm`/`ng` command in this environment prints a Node.js `EBADENGINE`/LTS-version advisory (built on Node v25.2.1, an odd-numbered non-LTS release; the toolchain prefers `^22.22.3 || ^24.15.0 || >=26.0.0`). This is a pre-existing environment characteristic, not a defect introduced by this submission — nothing failed because of it.
+- `mock-server`'s `npm run serve` uses json-server's file watcher (`--watch db.json`), which can hit `EMFILE: too many open files` on machines with a low open-file-descriptor `ulimit` (some CI runners and sandboxed environments). If you hit this, raise the limit (e.g. `ulimit -n 4096`) before running `npm run serve`.
 - `NgOptimizedImage` renders vehicle photos from `picsum.photos` mock URLs and emits a soft "unrecognized image loader" console advisory as a result — expected and documented in the System Design Document's Note on Ambiguity; a real deployment would point at a CDN with a registered loader.
