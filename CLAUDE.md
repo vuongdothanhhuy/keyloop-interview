@@ -17,7 +17,7 @@ Core requirements for Scenario B (verbatim from the PDF — do not weaken these)
 
 ## Current status
 
-**Fully implemented, tested, and documented.** All 23 tasks in the master plan are complete on branch `implement-inventory-dashboard` (not yet merged to `main` — that decision is the user's to make). The app builds (`ng build`), all tests pass (19 files / 83 unit+component tests, 3/3 Playwright e2e), and both required documentation deliverables (`docs/SYSTEM_DESIGN.md`, `README.md`) are written and fact-checked against the actual code. Before making further changes, read:
+**Fully implemented, tested, and documented, and merged to `main`.** All 23 tasks in the master plan are complete (originally on branch `implement-inventory-dashboard`, merged via PR #1 along with 5 additional fixes from an external Codex CLI review pass — see that branch's history for the full task-by-task record). The app builds (`ng build`), all tests pass (19 files / 86 unit+component tests, 3/3 Playwright e2e), and both required documentation deliverables (`docs/SYSTEM_DESIGN.md`, `README.md`) are written and fact-checked against the actual code. Before making further changes, read:
 
 - **`docs/superpowers/plans/2026-07-09-intelligent-inventory-dashboard.md`** — the master plan. All 23 tasks are checked off. **This remains the source of truth for the architecture and the reasoning behind it** — it now also documents, in place, every real bug a code-review pass found during implementation and how each was fixed (see the "Task N Execution Corrections" / "Codex Review Pass" sections scattered through the file, and the "Task Dependency Graph & Parallelization Guide" / "Commit Strategy: Red/Green Checkpoints" sections near the top). If you're picking up further work on this codebase, read the relevant task's corrections section before assuming the plan's originally-drafted code sample is exactly what's on disk — several were corrected after real execution surfaced discrepancies.
 - **`README.md`**'s "AI Collaboration Narrative" section — a real, specific account of every substantive bug the review process caught (a timezone bug in the core aging calculation, two concurrency bugs in `VehicleStore`, a production-build-only dependency failure, a mutable-signal type gap, a production page silently shipping `ng new` scaffold placeholder content, and more) and how each was verified and fixed. Read this before assuming any given file is bug-free just because it has a passing test suite — several of these bugs had passing tests until a review pass specifically went looking for the failure mode the given tests didn't cover.
@@ -99,7 +99,7 @@ npm start                    # ng serve on :4200, proxied to :3001 via proxy.con
 # Verification
 npx tsc --noEmit -p tsconfig.json
 npx eslint src --max-warnings=0
-npm test                     # `ng test` -> Vitest (default runner in Angular 22) — 19 files, 83 tests
+npm test                     # `ng test` -> Vitest (default runner in Angular 22) — 19 files, 86 tests
 npm test -- --coverage       # requires @vitest/coverage-v8 (already a devDependency)
 npx playwright test          # critical-path e2e (filter -> detail -> log action) — 3 tests
 npx ng build --configuration production

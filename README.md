@@ -44,11 +44,13 @@ cd mock-server && npm run serve   # http://localhost:3001
 cd app && npm start   # http://localhost:4200/inventory
 ```
 
+There is no login screen and no credentials to enter — authentication is out of scope for this assessment (see [Assumptions](#assumptions)). The app opens straight to the dashboard as a single hardcoded manager identity, `Alex Manager`, defined in `app/src/app/core/current-user.service.ts`. That name is what appears as the "logged by" value on any action you log.
+
 ## Running Tests
 
 ```bash
 cd app
-npm test                    # Vitest via `ng test` — 19 files, 83 unit + component tests
+npm test                    # Vitest via `ng test` — 19 files, 86 unit + component tests
 npm test -- --coverage      # with coverage report
 npx playwright test         # critical-path e2e suite (filter -> detail -> log action), auto-starts both servers via `webServer`
 npx ng build                # production build sanity check
@@ -86,7 +88,7 @@ Every fix above went through the same cycle as new code: a failing regression te
 
 ### Final Quality Assurance
 
-The full test suite (19 files, 83 unit/component tests) passes, the Playwright critical-path e2e suite (3 scenarios: filter to aging-only, navigate list→detail, log an action and see it persist in history) passes against the real running app, and `ng build` (production) succeeds with the two routed features correctly split into their own lazy-loaded chunks. `tsc --noEmit` and `eslint --max-warnings=0` are both clean. The app was manually exercised end-to-end via `curl` and direct API checks against the real mock server (a headless environment without a graphical browser was used for this session, so visual browser verification of the rendered UI is the one verification step deferred to the recorded video submission) — including the boundary-case vehicles at exactly 90/91 days, the mock server's injected latency and error-response paths, and the full filter→detail→log-action flow that the e2e suite also covers.
+The full test suite (19 files, 86 unit/component tests) passes, the Playwright critical-path e2e suite (3 scenarios: filter to aging-only, navigate list→detail, log an action and see it persist in history) passes against the real running app, and `ng build` (production) succeeds with the two routed features correctly split into their own lazy-loaded chunks. `tsc --noEmit` and `eslint --max-warnings=0` are both clean. The app was manually exercised end-to-end via `curl` and direct API checks against the real mock server (a headless environment without a graphical browser was used for this session, so visual browser verification of the rendered UI is the one verification step deferred to the recorded video submission) — including the boundary-case vehicles at exactly 90/91 days, the mock server's injected latency and error-response paths, and the full filter→detail→log-action flow that the e2e suite also covers.
 
 ## Assumptions
 
