@@ -35,9 +35,9 @@ import { VehicleFilter } from '../../models/vehicle-filter.model';
     } @else if (store.error(); as error) {
       <p class="error" role="alert">Couldn't load inventory: {{ error }}</p>
     } @else if (store.filteredVehicles().length === 0) {
-      <p>No vehicles match the current filters.</p>
+      <p class="empty-state">No vehicles match the current filters.</p>
     } @else {
-      <table>
+      <table class="inventory-table">
         <thead>
           <tr>
             <th><span class="visually-hidden">Photo</span></th>
@@ -52,7 +52,7 @@ import { VehicleFilter } from '../../models/vehicle-filter.model';
         <tbody>
           @for (vehicle of store.filteredVehicles(); track vehicle.id) {
             <tr data-testid="vehicle-row">
-              <td>
+              <td class="photo-cell">
                 <img
                   [ngSrc]="vehicle.imageUrl"
                   [width]="vehicle.imageWidth"
@@ -61,11 +61,11 @@ import { VehicleFilter } from '../../models/vehicle-filter.model';
                   alt="{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}"
                 />
               </td>
-              <td>{{ vehicle.vin }}</td>
+              <td class="vin-cell">{{ vehicle.vin }}</td>
               <td>{{ vehicle.make }}</td>
               <td>{{ vehicle.model }}</td>
               <td><app-aging-badge [severity]="vehicle.severity" [ageDays]="vehicle.ageDays" /></td>
-              <td>{{ vehicle.status }}</td>
+              <td class="status-cell">{{ vehicle.status.replaceAll('_', ' ') }}</td>
               <td>
                 <a mat-button [routerLink]="['/inventory', vehicle.vin]">View / Log Action</a>
               </td>
@@ -77,9 +77,63 @@ import { VehicleFilter } from '../../models/vehicle-filter.model';
   `,
   styles: `
     .thumb {
+      display: block;
       width: 64px;
-      height: auto;
-      border-radius: 4px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: var(--mat-sys-surface-container-high);
+    }
+    .empty-state {
+      color: var(--mat-sys-on-surface-variant);
+      padding: 2rem 0;
+      text-align: center;
+    }
+    .inventory-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--mat-sys-surface);
+      border: 1px solid var(--mat-sys-outline-variant);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--mat-sys-level1);
+    }
+    .inventory-table th,
+    .inventory-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--mat-sys-outline-variant);
+      vertical-align: middle;
+    }
+    .inventory-table th {
+      background: var(--mat-sys-surface-container);
+      color: var(--mat-sys-on-surface-variant);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .inventory-table tbody tr {
+      transition: background 0.12s ease;
+    }
+    .inventory-table tbody tr:hover {
+      background: var(--mat-sys-surface-container-low);
+    }
+    .inventory-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .photo-cell {
+      width: 64px;
+      padding-right: 0;
+    }
+    .vin-cell {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.01em;
+    }
+    .status-cell {
+      text-transform: capitalize;
+      color: var(--mat-sys-on-surface-variant);
     }
     .visually-hidden {
       position: absolute;
