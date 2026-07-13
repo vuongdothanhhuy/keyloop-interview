@@ -56,6 +56,8 @@ npx playwright test         # critical-path e2e suite (filter -> detail -> log a
 npx ng build                # production build sanity check
 ```
 
+If this is the machine's first time running Playwright, download its browser binary first (one-time): `npx playwright install chromium`.
+
 The business-logic test suite lives in `app/src/app/features/inventory/domain/*.spec.ts` (aging calculation, filtering, KPI aggregation, vehicle enrichment — all pure, framework-free functions) and `app/src/app/features/inventory/data-access/*.spec.ts` (the HTTP boundary and the `VehicleStore` that wires it all together).
 
 ## AI Collaboration Narrative
