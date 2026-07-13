@@ -47,7 +47,7 @@ The user asked to target the **latest Angular (v22)** and provided `docs/best-pr
 
 1. **Dropped `@ngrx/signals`.** Its latest release (`21.1.1`) and even its `next` tag both declare `@angular/core: ^21.0.0` as a hard peer ceiling — confirmed by downloading the package metadata directly. It does not support Angular 22 today. Rather than fight that (or stay on Angular 21 against the user's explicit instruction), `VehicleStore` is now a plain `@Service()`-decorated class built from `signal()`/`computed()`/`.update()` directly — which is exactly what `docs/best-practices.md` already asks for ("Use signals for state management," "Use `computed()` for derived state," "Do NOT use `mutate`... use `update` or `set`") and what the `angular-developer` skill's `creating-services.md` demonstrates. This also removes a fragility noted in the old plan (calling `inject()` inside a `SignalStore`'s `withComputed`/`withMethods` factory) — the new store injects everything once, in one place, like an ordinary class.
 2. **`@Service()` instead of `@Injectable({ providedIn: 'root' })`.** Confirmed as a real, exported decorator by extracting `@angular/core@22.0.6`'s type definitions directly (`declare const Service: ServiceDecorator;`, documented as auto-provided + tree-shakeable, no `providers` array needed). Used for every true singleton service in this plan (`ClockService`, `LoggerService`, `CurrentUserService`, `VehicleService`, `VehicleActionService`, `VehicleStore`). `AppErrorHandler` is the one exception — it's manually provided under the `ErrorHandler` DI token (`{ provide: ErrorHandler, useClass: AppErrorHandler }`), not auto-provided as itself, so it keeps a plain `@Injectable()`.
-3. **Zoneless is the actual default**, not an opt-in flag — confirmed via `@schematics/angular@22.0.5`'s `application/schema.json` (`"zoneless": { "default": true }`). `app.config.ts` uses `provideZonelessChangeDetection()`. New in v22 scaffolding: `provideBrowserGlobalErrorListeners()`, added alongside `AppErrorHandler` (they're complementary — the browser listener catches truly-uncaught `window.onerror`/`unhandledrejection` events outside Angular's own execution, `AppErrorHandler` catches errors Angular itself surfaces during change detection/template/event execution).
+3. **Zoneless is the actual default**, not an opt-in flag — confirmed via `@schematics/angular@22.0.5`'s `application/schema.json` (`"zoneless": { "default": true }`). **Corrected against the real `ng new` output (Task 1 execution, 2026-07-10):** the generated `app.config.ts` does *not* contain a `provideZonelessChangeDetection()` call — when scaffolding with `--zoneless=true`, the template simply omits the zone-provider block entirely, since zoneless is the inherent runtime default with nothing to opt into. `provideZonelessChangeDetection()` is still a real, exported function (confirmed against the installed `@angular/core@22.0.6`'s type definitions), and this plan's own Task 17 calls it explicitly to make the app's zoneless-ness self-documenting in code — but that call is added by Task 17, not present in the fresh scaffold. New in v22 scaffolding: `provideBrowserGlobalErrorListeners()`, added alongside `AppErrorHandler` (they're complementary — the browser listener catches truly-uncaught `window.onerror`/`unhandledrejection` events outside Angular's own execution, `AppErrorHandler` catches errors Angular itself surfaces during change detection/template/event execution).
 4. **Vitest is the default test runner**, not Karma — confirmed via the same schema (`"testRunner": { "enum": ["vitest", "karma"], "default": "vitest" }`) and the CLI's `@angular/build:unit-test` builder (there's even an official `migrate-karma-to-vitest` migration script in the schematics package, so this is a supported, permanent transition, not experimental). This plan drops the manually-wired `jest-preset-angular` setup from the original draft entirely — `ng new`/`ng test` configure Vitest automatically. Per the `angular-developer` skill's `testing-fundamentals.md`, zoneless testing is "Act, Wait, Assert": never call `fixture.detectChanges()`; always `await fixture.whenStable()` after the fixture is created or after a state-changing action.
 5. **No explicit `standalone: true`** (default since Angular 19) **and no explicit `ChangeDetectionStrategy.OnPush`** (default in v22) on any `@Component` — both removed from every component in this plan per `docs/best-practices.md`.
 6. **Signal Forms (`@angular/forms/signals`) for the one real form** — the action-log dialog. Verified the API directly against the `angular-developer` skill's `signal-forms.md` reference (imports, `form()`, `FormField`, `required()`, `submit()` must be async, "never null — use `''`/`0`/`[]`" model rule). Because Signal Forms' `[formField]` directive binds via a mechanism the skill only demonstrates against **native** `<input>`/`<select>`/`<textarea>` elements, and Angular Material 22's `mat-select`/`mat-input` CVA-compatibility with it isn't confirmed, the dialog's actual form controls are native HTML elements (Material is still used for the dialog chrome/buttons). The filter bar isn't converted — it has no validation/submit semantics, it's a live signal-driven UI control, not "a form."
@@ -79,6 +79,7 @@ The user asked to target the **latest Angular (v22)** and provided `docs/best-pr
 8. **`json-server` pinned to stable `0.17.4`**, not the in-progress `1.0.0-beta.x` rewrite, for reproducibility in a graded submission.
 9. **Zoneless + Vitest are used because they are Angular 22's actual defaults**, not because this plan opted into an experimental feature — confirmed against the CLI's own schematics.
 10. **`NgOptimizedImage` against `picsum.photos` mock images** will emit a soft "unrecognized image loader" advisory in the console; this is expected and left as-is (a real deployment would point `imageUrl` at a CDN with a registered `NgOptimizedImage` loader, or configure a custom one).
+11. **"Log Action" is available on every vehicle, not restricted to aging stock**, even though the PDF's requirement 3 literally says "for each aging vehicle." Added after an external PR review (2026-07-10) raised this as a previously-undecided ambiguity: a manager plausibly wants to log a proactive action before a vehicle crosses the 90-day threshold, and gating the button on `isAging` would only remove flexibility without serving any requirement the assessment evaluates. See `docs/SYSTEM_DESIGN.md`'s "Note on Ambiguity" item 11 for the same resolution.
 
 ---
 
@@ -213,11 +214,13 @@ Every task below follows the same shape: write a failing test → verify it fail
 
 **The fix: commit twice per test/implement cycle, not once.**
 
-1. After the step that says "run the test(s) to verify they fail" (typically Step 2, but re-numbered in tasks with extra setup steps) — **stop and commit the test file(s) alone**, before writing any implementation. Use a commit message in the form `test: add failing spec for <thing> (red)`. This step isn't written out individually in every task below (it would roughly double the length of this document for a mechanical repetition of the same instruction); apply it as a standing rule at that point in every task's sequence.
+1. After the step that says "run the test(s) to verify they fail" (typically Step 2, but re-numbered in tasks with extra setup steps) — **stop and commit the test file(s) alone**, before writing any implementation. Use a plain descriptive sentence ending in the literal marker `(red)` — e.g. "Add failing spec for ClockService (red)". This step isn't written out individually in every task below (it would roughly double the length of this document for a mechanical repetition of the same instruction); apply it as a standing rule at that point in every task's sequence.
 2. The task's existing final "Commit" step (after the implementation makes the test pass) is the **green** commit and needs no change — its message already describes the feature, which is correct for the green state.
 3. **Tasks with more than one test/implement cycle** (e.g. Task 16 has `LoggerService` then the interceptor; Task 19 has `ActionLogDialog` then `VehicleDetail`) get a red commit before *each* implementation, not just once for the whole task — treat every "write the failing test(s)" step in a task as its own red checkpoint, independent of how many other cycles that same task contains.
 
-**Why this is enough to resume without re-reading code:** after any interruption, `git log --oneline` shows either a `test: ... (red)` commit (meaning: the test exists and is currently failing — pick up at "write the implementation") or a `feat: ...`/`chore: ...` commit (meaning: that cycle is green — pick up at the next step or next task). Cross-check with one test run (`npx ng test --include=...`, named in the task) rather than reading any implementation source. `git status` on top of that catches the rarer case of an edit in progress that was never even run.
+**Neither the red nor the green commit message uses a conventional-commit type prefix** (`test:`, `feat:`, `chore:`, etc.) — per this repo's `CLAUDE.md` "Git commit conventions." An earlier draft of this section suggested a `test: ...` prefix for red commits, which directly contradicted that rule; corrected here (2026-07-10) after a code review caught the inconsistency. The `(red)` marker is what distinguishes a red commit — not a prefix tag.
+
+**Why this is enough to resume without re-reading code:** after any interruption, `git log --oneline` shows either a commit ending in `(red)` (meaning: the test exists and is currently failing — pick up at "write the implementation") or a plain feature-description commit with no `(red)` marker (meaning: that cycle is green — pick up at the next step or next task). Cross-check with one test run (`npx ng test --include=...`, named in the task) rather than reading any implementation source. `git status` on top of that catches the rarer case of an edit in progress that was never even run.
 
 ---
 
@@ -228,6 +231,7 @@ Every task below follows the same shape: write a failing test → verify it fail
 **Files:**
 - Create: `mock-server/package.json`
 - Create: `app/` (via `ng new`)
+- Modify: `app/src/app/app.html`, `app/src/app/app.ts`, `app/src/app/app.spec.ts` (remove the `ng new` scaffold placeholder — see Step 5)
 
 **Interfaces:** none (scaffolding only).
 
@@ -246,19 +250,43 @@ Expected: `@angular/core`/`@angular/cli` resolve to `22.0.6`/`22.0.5` or newer c
 
 ```bash
 cd /Users/vuongdothanhhuy/Documents/GitHub/keyloop-interview
-npx -y @angular/cli@22.0.6 new app --directory app --style=scss --routing=true --ssr=false --zoneless=true --test-runner=vitest --skip-confirmation
+npx -y @angular/cli@22.0.6 new app --directory app --style=scss --routing=true --ssr=false --zoneless=true --test-runner=vitest --interactive=false
 ```
-Expected: `app/` created with Angular 22.0.6, zoneless change detection, Vitest configured as the `test` architect target (`@angular/build:unit-test` builder), standalone bootstrap, `provideBrowserGlobalErrorListeners()` already present in the generated `app.config.ts`.
+> **Verified during Task 1 execution (2026-07-10) against the real `@angular/cli@22.0.6` binary:** `--skip-confirmation` is not a valid flag for `ng new` (`Error: Unknown argument: skip-confirmation`) — use `--interactive=false`, which has identical intent and was confirmed via `ng new --help`. (`ng add` commands elsewhere in this plan do still accept `--skip-confirmation`; only `ng new` differs.)
+
+Expected: `app/` created with Angular 22.0.6, Vitest configured as the `test` architect target (`@angular/build:unit-test` builder), standalone bootstrap, `provideBrowserGlobalErrorListeners()` already present in the generated `app.config.ts`. **Zoneless confirmation is different from what was assumed pre-execution:** the generated `app.config.ts` does **not** contain an explicit `provideZonelessChangeDetection()` call — when `--zoneless=true`, the schematic template simply omits the zone-provider block entirely (confirmed directly from `@schematics/angular`'s `application/files/standalone-files/src/app/app.config.ts.template`), since zoneless is the inherent runtime default now, not an opt-in provider. Confirm zoneless via the *absence* of `zone.js` in `node_modules` and the *absence* of a `polyfills` array in `angular.json`'s build options, not via a literal provider call in this file. (`provideZonelessChangeDetection()` is still a real, exported function in `@angular/core@22.0.6` — Task 17 calls it explicitly later, which is valid; `ng new` just doesn't add that call itself.)
 
 - [ ] **Step 3: Add Angular Material (non-form chrome only — see "Angular 22 Revision" point 6)**
 
 ```bash
 cd app
-npx ng add @angular/material@22.0.4 --skip-confirmation --theme=indigo-pink --typography=true --animations=enabled
+npx ng add @angular/material@22.0.4 --skip-confirmation --theme=magenta-violet
 ```
-Expected: `package.json` lists `@angular/material`/`@angular/cdk` at `22.0.4`.
+> **Verified during Task 1 execution (2026-07-10):** Material 22's `ng-add` schematic dropped M2 theme names and the `--typography`/`--animations` flags entirely — it's M3-only now. `--theme` only accepts 4 named palette pairs: `azure-blue` (default), `rose-red`, `magenta-violet`, `cyan-orange`. `indigo-pink` doesn't exist and crashes the schematic (`Cannot read properties of undefined (reading 'primary')`). `magenta-violet` was chosen as the closest aesthetic analog to the original indigo-pink intent and confirmed with the user. **No animations provider (`provideAnimationsAsync()`) is added by this command anymore** — there's no flag for it in this schematic version; see the corrected note in Task 17, which adds it explicitly in `app.config.ts` regardless.
 
-- [ ] **Step 4: Scaffold the mock-server package**
+Expected: `package.json` lists `@angular/material`/`@angular/cdk` at `^22.0.4`; `src/styles.scss` rewritten with the `mat.theme()` M3 mixin.
+
+- [ ] **Step 4: Install `@angular/animations` explicitly**
+
+```bash
+cd app
+npm install @angular/animations@22.0.6
+```
+> **Added after real execution (2026-07-10):** Task 17's `app.config.ts` calls `provideAnimationsAsync()`, which dynamically imports `@angular/animations/browser` at bundle time. `@angular/animations` is only an *optional* peer dependency of `@angular/platform-browser` — neither `ng new` nor `ng add @angular/material` installs it as a real dependency — so without this step, `ng serve` works fine (its dev bundler doesn't hit the missing-module error) but `ng build` (production) fails outright with `Could not resolve "@angular/animations/browser"`. This was originally discovered at Task 17 and fixed there as a follow-up commit; installing it here instead means it's never missing in the first place.
+
+Expected: `app/package.json` lists `@angular/animations` as a `dependencies` entry (not just implied via peer deps), pinned consistently with the other `@angular/*` packages.
+
+- [ ] **Step 5: Remove the `ng new` scaffold placeholder from the app shell**
+
+Replace `app/src/app/app.html`'s entire generated content (the "This content is only a placeholder" boilerplate — Angular logo SVG, marketing pill links, and a `<h1>Hello, {{ title() }}</h1>`) with just:
+```html
+<router-outlet />
+```
+Also remove the now-unused `title` signal from `app/src/app/app.ts` (it becomes `export class App {}`), and update `app/src/app/app.spec.ts`'s `'should render title'` test to instead assert `fixture.nativeElement.querySelector('router-outlet')` is truthy.
+
+> **Added after real execution (2026-07-10):** this step didn't exist in the original plan, and the omission went undetected through 19 tasks — no unit/component test ever renders the routed root shell in a browser context, so nothing caught that every real page (`/inventory`, `/inventory/:vin`) was rendering the full default scaffold (including a stray top-level `<h1>`) above the actual feature content. It was only discovered once Task 20's Playwright suite exercised a real browser against the real running app and hit a strict-mode violation from two `<h1>` elements on the same page. Doing this cleanup here, immediately after scaffolding, means it's never present in a production build at all rather than being caught 19 tasks later.
+
+- [ ] **Step 6: Scaffold the mock-server package**
 
 ```bash
 mkdir -p /Users/vuongdothanhhuy/Documents/GitHub/keyloop-interview/mock-server
@@ -268,7 +296,7 @@ npm install json-server@0.17.4
 npm install --save-dev @faker-js/faker@10.5.0 typescript@5.9 tsx@4
 ```
 
-- [ ] **Step 5: Add ESLint (`angular-eslint`) and Prettier**
+- [ ] **Step 7: Add ESLint (`angular-eslint`) and Prettier**
 
 ```bash
 cd /Users/vuongdothanhhuy/Documents/GitHub/keyloop-interview/app
@@ -277,7 +305,7 @@ npm install --save-dev prettier
 ```
 Expected: `.eslintrc.json` (or flat `eslint.config.js`, whichever `angular-eslint`'s schematic generates for this version) and an `eslint`/`lint` architect target added to `angular.json`. Add a minimal `.prettierrc.json` (e.g. `{ "singleQuote": true }`) so `npx eslint src --max-warnings=0` (Task 23's final checklist) and any Prettier-vs-ESLint formatting rule conflicts are resolved consistently from the start, not discovered at Task 23.
 
-- [ ] **Step 6: Install Playwright (used in Task 20)**
+- [ ] **Step 8: Install Playwright (used in Task 20)**
 
 ```bash
 cd /Users/vuongdothanhhuy/Documents/GitHub/keyloop-interview/app
@@ -285,11 +313,19 @@ npm install --save-dev @playwright/test@1.61.1
 npx playwright install chromium
 ```
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 9: Install the Vitest coverage provider (used by `npm test -- --coverage`, Task 23)**
+
+```bash
+cd /Users/vuongdothanhhuy/Documents/GitHub/keyloop-interview/app
+npm install --save-dev @vitest/coverage-v8
+```
+> **Added after real execution (2026-07-10):** `npm test -- --coverage` (referenced in both this plan and the README from the start) failed outright with "Code coverage requires either @vitest/coverage-v8 or @vitest/coverage-istanbul to be installed" — neither `ng new` nor any earlier step installs a coverage provider. This wasn't caught until Task 23's final verification pass. Installing it here means every task's own test runs could have used `--coverage` from the start if wanted.
+
+- [ ] **Step 10: Commit**
 
 ```bash
 git add app mock-server
-git commit -m "chore: scaffold Angular 22 app (zoneless, vitest), ESLint/Prettier, and json-server mock-server package"
+git commit -m "Scaffold Angular 22 app and json-server mock-server package"
 ```
 
 ---
@@ -430,7 +466,13 @@ import { writeFileSync } from 'node:fs';
 faker.seed(42); // deterministic across regenerations
 
 const DEALERSHIP_ID = 'DEALER-001';
-const TODAY = new Date('2026-07-09T00:00:00.000Z'); // fixed "as-of" for reproducible seed data
+// Anchored to real "now" at generation time, not a fixed historical date: the app's
+// ClockService always reports real wall-clock time, so a fixed anchor here would silently
+// drift out of sync with it (the "exactly 90 days, not aging" boundary vehicle would flip
+// to aging the very next day after regenerating). Re-run `npm run seed` to refresh this
+// anchor whenever you want the boundary-case vehicles to reflect "today" again — faker's
+// fixed seed (below) still makes every other field deterministic across re-runs.
+const TODAY = new Date();
 const IMAGE_WIDTH = 400;
 const IMAGE_HEIGHT = 300;
 
@@ -546,15 +588,21 @@ Expected output: `Seeded 130 vehicles and <N> actions.` and `mock-server/db.json
 
 - [ ] **Step 3: Sanity-check the boundary cases landed correctly**
 
-Run:
+Since `TODAY` is real "now" at generation time (not a fixed date — see the note above, corrected 2026-07-10 after a review pass caught the original fixed-date version silently drifting out of sync with the app's own `ClockService`), verify the boundary using the same UTC-day-normalized math `inventory-age.util.ts` actually uses, not a naive millisecond difference against a non-midnight `new Date()` (naive math over- or under-counts by a day depending on the time of day the check itself runs):
+
 ```bash
 node -e "
 const db = require('./db.json');
-console.log('v90 intakeDate', db.vehicles[0].intakeDate, '-> expect NOT aging');
-console.log('v91 intakeDate', db.vehicles[1].intakeDate, '-> expect aging');
+function startOfDayUTC(d) { return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()); }
+function ageDays(intakeDate, asOf) {
+  return Math.max(Math.floor((startOfDayUTC(asOf) - startOfDayUTC(new Date(intakeDate))) / 86400000), 0);
+}
+const now = new Date();
+console.log('v0 intakeDate', db.vehicles[0].intakeDate, '-> ageDays =', ageDays(db.vehicles[0].intakeDate, now), '(expect exactly 90, NOT aging)');
+console.log('v1 intakeDate', db.vehicles[1].intakeDate, '-> ageDays =', ageDays(db.vehicles[1].intakeDate, now), '(expect exactly 91, aging)');
 "
 ```
-Expected: two ISO dates roughly 90 and 91 days before `2026-07-09`.
+Expected: `ageDays = 90` for `v0` and `ageDays = 91` for `v1`, exactly, relative to whenever this check is actually run (not a fixed historical date).
 
 - [ ] **Step 4: Commit**
 
@@ -860,9 +908,10 @@ describe('matchesFilter', () => {
     expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, make: 'Ford' })).toBe(false);
   });
 
-  it('filters by model', () => {
+  it('filters by model (case-insensitive)', () => {
     const v = makeVehicle({ model: 'Corolla' });
     expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, model: 'Corolla' })).toBe(true);
+    expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, model: 'corolla' })).toBe(true);
     expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, model: 'RAV4' })).toBe(false);
   });
 
@@ -893,6 +942,16 @@ describe('matchesFilter', () => {
     const failingFilter = { ...EMPTY_VEHICLE_FILTER, make: 'Toyota', model: 'RAV4' };
     expect(matchesFilter(v, passingFilter)).toBe(true);
     expect(matchesFilter(v, failingFilter)).toBe(false);
+  });
+
+  it('rejects a search match on a non-aging vehicle when agingOnly is also set', () => {
+    const v = makeVehicle({ make: 'Toyota', isAging: false });
+    expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, search: 'toyota', agingOnly: true })).toBe(false);
+  });
+
+  it('rejects a make match when status also fails to match', () => {
+    const v = makeVehicle({ make: 'Ford', status: 'reserved' });
+    expect(matchesFilter(v, { ...EMPTY_VEHICLE_FILTER, make: 'Ford', status: 'in_stock' })).toBe(false);
   });
 });
 
@@ -960,7 +1019,7 @@ export function filterVehicles(
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `cd app && npx ng test --include="**/vehicle-filter.util.spec.ts"`
-Expected: PASS (9 tests).
+Expected: PASS (11 tests — 9 originally, plus 2 added after a code-review pass found the `model` filter's given test never actually proved its case-insensitive behavior, and that only one AND-semantics combination was covered).
 
 - [ ] **Step 5: Commit**
 
@@ -1502,12 +1561,19 @@ git commit -m "feat: add VehicleActionService HTTP boundary"
 
 > **Why not `@ngrx/signals`:** see "Angular 22 Revision" point 1 above — its peer range doesn't cover Angular 22 as of this plan's writing. Re-check before reintroducing it.
 
+> **Updated after real execution (2026-07-10) — three real bugs were found in this file by independent code review after the version below was first written, and are already fixed in the code shown in this task (not left as a follow-up):**
+> 1. **`logAction()`'s failure rollback used to reset the whole `actions` array to a stale pre-call snapshot** instead of removing only its own optimistic entry — meaning one failed action-log could silently destroy a *different*, already-successfully-saved action if two `logAction()` calls overlapped. Fixed: the error handler now does `s.actions.filter((a) => a.id !== optimisticId)` against the *current* state at error time.
+> 2. **`load()`'s success handler used to wholesale-replace `actions` with the server's list**, which could erase a concurrent `logAction()`'s optimistic entry before its own response arrived to replace it (this app calls `store.load()` on every route mount, and the mock server has 150–500ms of injected latency, so this was genuinely reachable, not just a contrived edge case). Fixed: the merge now preserves any still-`optimistic-`-prefixed entries.
+> 3. **`optimisticId` used to be derived from `clock.now().getTime()` alone** (millisecond resolution) — two `logAction()` calls within the same millisecond, or under a frozen/mocked clock, would collide. Fixed: a monotonic `optimisticIdCounter` is appended.
+>
+> A fourth, unrelated fix landed in `updateFilter()` (from a Task 15 review, not Task 12's own review): selecting a `make` could leave an already-selected `model` invalid for the new make, silently diverging the UI dropdown from the applied filter. `updateFilter()` now clears `model` when it no longer belongs to the newly-selected make.
+
 - [ ] **Step 1: Write the failing tests**
 
 ```typescript
 // app/src/app/features/inventory/data-access/vehicle.store.spec.ts
 import { TestBed } from '@angular/core/testing';
-import { of, throwError } from 'rxjs';
+import { Observable, of, Subject, throwError } from 'rxjs';
 import { VehicleStore } from './vehicle.store';
 import { VehicleService } from './vehicle.service';
 import { VehicleActionService } from './vehicle-action.service';
@@ -1545,6 +1611,7 @@ describe('VehicleStore', () => {
     getVehicles?: () => ReturnType<VehicleService['getVehicles']>;
     getAllActions?: () => ReturnType<VehicleActionService['getAllActions']>;
     logAction?: () => ReturnType<VehicleActionService['logAction']>;
+    now?: () => Date;
   }) {
     TestBed.configureTestingModule({
       providers: [
@@ -1569,7 +1636,7 @@ describe('VehicleStore', () => {
                 } satisfies VehicleAction)),
           },
         },
-        { provide: ClockService, useValue: { now: () => FIXED_NOW } },
+        { provide: ClockService, useValue: { now: overrides?.now ?? (() => FIXED_NOW) } },
       ],
     });
     return TestBed.inject(VehicleStore);
@@ -1605,6 +1672,37 @@ describe('VehicleStore', () => {
     store.load();
     store.updateFilter({ make: 'Ford' });
     expect(store.filteredVehicles().map((v) => v.id)).toEqual(['V2']);
+  });
+
+  it('updateFilter() clears a model selection that is no longer valid for a newly-selected make', () => {
+    const store = setup({
+      getVehicles: () =>
+        of([
+          vehicle({ id: 'V1', make: 'Toyota', model: 'Corolla' }),
+          vehicle({ id: 'V2', make: 'Ford', model: 'Focus' }),
+        ]),
+    });
+    store.load();
+    store.updateFilter({ model: 'Corolla' });
+    expect(store.filter().model).toBe('Corolla');
+
+    store.updateFilter({ make: 'Ford' });
+    expect(store.filter().make).toBe('Ford');
+    expect(store.filter().model).toBeNull(); // 'Corolla' isn't a Ford model — stale selection cleared
+  });
+
+  it('updateFilter() keeps a model selection that is still valid for the new make', () => {
+    const store = setup({
+      getVehicles: () =>
+        of([
+          vehicle({ id: 'V1', make: 'Toyota', model: 'Corolla' }),
+          vehicle({ id: 'V2', make: 'Toyota', model: 'RAV4' }),
+        ]),
+    });
+    store.load();
+    store.updateFilter({ make: 'Toyota', model: 'Corolla' });
+    store.updateFilter({ make: 'Toyota' }); // re-selecting the same make shouldn't clear a valid model
+    expect(store.filter().model).toBe('Corolla');
   });
 
   it('agingVehicles() only contains vehicles past the 90-day threshold', () => {
@@ -1675,6 +1773,106 @@ describe('VehicleStore', () => {
     expect(store.error()).toBe('save failed');
     expect(store.actions()).toEqual(before); // rolled back, no phantom action left behind
   });
+
+  it('logAction() rollback only removes its own optimistic entry, not a different concurrent action that already succeeded', () => {
+    const subjects: Subject<VehicleAction>[] = [];
+    let tick = 0;
+    const store = setup({
+      logAction: (): Observable<VehicleAction> => {
+        const subject = new Subject<VehicleAction>();
+        subjects.push(subject);
+        return subject.asObservable();
+      },
+      // Each logAction() call reads clock.now() twice (optimisticId, then createdAt).
+      // Advancing on every read gives the two concurrent calls distinct optimisticIds,
+      // matching real-world behavior where clock.now() moves forward between calls.
+      now: () => new Date(FIXED_NOW.getTime() + tick++),
+    });
+    store.load();
+
+    store.logAction({ vehicleId: 'V1', actionType: 'manager_review', note: 'will fail', loggedBy: 'Alex' });
+    store.logAction({ vehicleId: 'V1', actionType: 'price_reduction_planned', note: 'will succeed', loggedBy: 'Alex' });
+    expect(store.actions().length).toBe(2);
+
+    // The second call resolves successfully first.
+    subjects[1].next({
+      id: 'real-b',
+      vehicleId: 'V1',
+      actionType: 'price_reduction_planned',
+      note: 'will succeed',
+      loggedBy: 'Alex',
+      createdAt: FIXED_NOW.toISOString(),
+    });
+    subjects[1].complete();
+
+    // The first call then fails.
+    subjects[0].error(new Error('save failed'));
+
+    expect(store.error()).toBe('save failed');
+    expect(store.actions().some((a) => a.id === 'real-b')).toBe(true); // survives the other call's rollback
+    expect(store.actions().length).toBe(1); // only the failed call's own optimistic entry was removed
+  });
+
+  it('load() resolving mid-logAction() does not erase the pending optimistic entry', () => {
+    const actionsSubject = new Subject<VehicleAction[]>();
+    const logActionSubject = new Subject<VehicleAction>();
+    const store = setup({
+      getAllActions: () => actionsSubject.asObservable(),
+      logAction: () => logActionSubject.asObservable(),
+    });
+
+    store.load(); // in flight: getAllActions() hasn't resolved yet
+
+    store.logAction({
+      vehicleId: 'V1',
+      actionType: 'price_reduction_planned',
+      note: 'note',
+      loggedBy: 'Alex',
+    });
+    expect(store.actions().length).toBe(1);
+    const optimisticId = store.actions()[0].id;
+    expect(optimisticId.startsWith('optimistic-')).toBe(true);
+
+    // load()'s own HTTP response now arrives, with a real actions list that does NOT
+    // include the not-yet-persisted optimistic entry.
+    actionsSubject.next([]);
+    actionsSubject.complete();
+
+    // The optimistic entry must survive load()'s commit.
+    expect(store.actions().some((a) => a.id === optimisticId)).toBe(true);
+    expect(store.actions().length).toBe(1);
+
+    // logAction()'s own HTTP response then arrives and should replace the optimistic
+    // entry with the persisted one, not silently no-op because it's already gone.
+    const saved: VehicleAction = {
+      id: 'real-1',
+      vehicleId: 'V1',
+      actionType: 'price_reduction_planned',
+      note: 'note',
+      loggedBy: 'Alex',
+      createdAt: FIXED_NOW.toISOString(),
+    };
+    logActionSubject.next(saved);
+    logActionSubject.complete();
+
+    expect(store.actions().length).toBe(1);
+    expect(store.actions()[0].id).toBe('real-1');
+  });
+
+  it('two logAction() calls within the same clock instant get distinct optimistic ids', () => {
+    const store = setup({
+      logAction: () => new Subject<VehicleAction>().asObservable(), // left pending on purpose
+      now: () => FIXED_NOW, // frozen clock: both calls read the exact same instant
+    });
+    store.load();
+
+    store.logAction({ vehicleId: 'V1', actionType: 'manager_review', note: 'first', loggedBy: 'Alex' });
+    store.logAction({ vehicleId: 'V1', actionType: 'price_reduction_planned', note: 'second', loggedBy: 'Alex' });
+
+    expect(store.actions().length).toBe(2);
+    const ids = store.actions().map((a) => a.id);
+    expect(new Set(ids).size).toBe(2); // must be distinct even though the clock didn't advance
+  });
 });
 ```
 
@@ -1726,6 +1924,10 @@ export class VehicleStore {
   // recent request in flight, guarding against out-of-order resolution when load() is
   // called again before a prior call's HTTP responses have arrived.
   private latestRequestId = 0;
+  // Guarantees optimisticId uniqueness even when clock.now() returns the same instant
+  // for two logAction() calls issued within the same millisecond (or under a fake/frozen
+  // clock in tests) — timestamp alone is not a reliable uniqueness source.
+  private optimisticIdCounter = 0;
 
   readonly vehicles = computed(() => this.state().vehicles);
   readonly actions = computed(() => this.state().actions);
@@ -1761,7 +1963,15 @@ export class VehicleStore {
     }).subscribe({
       next: ({ vehicles, actions }) => {
         if (requestId !== this.latestRequestId) return; // superseded by a newer load()
-        this.state.update((s) => ({ ...s, vehicles, actions, loading: false }));
+        this.state.update((s) => ({
+          ...s,
+          vehicles,
+          // Preserve any locally-pending optimistic action(s) a concurrent logAction() appended
+          // while this load() was in flight — otherwise a load() resolving mid-logAction() would
+          // silently erase the optimistic entry before the real HTTP response arrives to replace it.
+          actions: [...actions, ...s.actions.filter((a) => a.id.startsWith('optimistic-'))],
+          loading: false,
+        }));
       },
       error: (err: Error) => {
         if (requestId !== this.latestRequestId) return;
@@ -1771,12 +1981,25 @@ export class VehicleStore {
   }
 
   updateFilter(partial: Partial<VehicleFilter>): void {
-    this.state.update((s) => ({ ...s, filter: { ...s.filter, ...partial } }));
+    this.state.update((s) => {
+      const filter = { ...s.filter, ...partial };
+      // Changing make can narrow the model dropdown (see availableModels above) out from
+      // under a currently-selected model — clear a model that's no longer valid for the new
+      // make, otherwise the UI's dropdown and the applied filter silently diverge.
+      if ('make' in partial && filter.make && filter.model) {
+        const modelsForMake = new Set(
+          s.vehicles.filter((v) => v.make === filter.make).map((v) => v.model),
+        );
+        if (!modelsForMake.has(filter.model)) {
+          filter.model = null;
+        }
+      }
+      return { ...s, filter };
+    });
   }
 
   logAction(input: NewVehicleAction): void {
-    const previousActions = this.state().actions;
-    const optimisticId = `optimistic-${this.clock.now().getTime()}`;
+    const optimisticId = `optimistic-${this.clock.now().getTime()}-${this.optimisticIdCounter++}`;
     // Stamp createdAt here, client-side: json-server auto-generates `id` on POST but
     // does NOT stamp `createdAt`, and enrichVehicles()/latestActionFor() rely on that
     // field for ordering. The same createdAt is used for the optimistic entry and the
@@ -1793,7 +2016,11 @@ export class VehicleStore {
           actions: s.actions.map((a) => (a.id === optimisticId ? saved : a)),
         })),
       error: (err: Error) =>
-        this.state.update((s) => ({ ...s, actions: previousActions, error: err.message })),
+        this.state.update((s) => ({
+          ...s,
+          actions: s.actions.filter((a) => a.id !== optimisticId),
+          error: err.message,
+        })),
     });
   }
 }
@@ -1802,7 +2029,7 @@ export class VehicleStore {
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `cd app && npx ng test --include="**/vehicle.store.spec.ts"`
-Expected: PASS (10 tests).
+Expected: PASS (15 tests).
 
 - [ ] **Step 5: Commit**
 
@@ -2097,8 +2324,14 @@ describe('VehicleFilterBar', () => {
     const emitted: Partial<typeof EMPTY_VEHICLE_FILTER>[] = [];
     fixture.componentInstance.filterChange.subscribe((v) => emitted.push(v));
 
-    const toggle = fixture.debugElement.query(By.css('[data-testid="aging-only-toggle"]'))
-      .nativeElement as HTMLInputElement;
+    // MatSlideToggle binds its click handler to the internal `<button class="mdc-switch">`,
+    // not the `<mat-slide-toggle>` host — a native .click() on the host can't reach a
+    // descendant's listener (bubbling only goes up), so the click must target the actual
+    // interactive control, same as a real user click would land on. Corrected during Task 15
+    // execution (2026-07-10) after this literal query failed against the real
+    // @angular/material@22.0.4 DOM structure.
+    const toggle = fixture.debugElement.query(By.css('[data-testid="aging-only-toggle"] button'))
+      .nativeElement as HTMLButtonElement;
     toggle.click();
     await fixture.whenStable();
 
@@ -2293,8 +2526,48 @@ describe('InventoryDashboard', () => {
     fixture.componentInstance.onFilterChange({ agingOnly: true });
     expect(updateFilterSpy).toHaveBeenCalledWith({ agingOnly: true });
   });
+
+  it('gives the photo and actions columns an accessible (non-visual) label', async () => {
+    await fixture.whenStable();
+    const headerCells = fixture.nativeElement.querySelectorAll('th');
+    expect(headerCells[0].textContent?.trim()).toBe('Photo');
+    expect(headerCells[headerCells.length - 1].textContent?.trim()).toBe('Actions');
+  });
+
+  it('gives the loading spinner an accessible label', async () => {
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [InventoryDashboard],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideRouter([]),
+        {
+          provide: VehicleStore,
+          useValue: {
+            load: vi.fn(),
+            updateFilter: vi.fn(),
+            loading: signal(true),
+            error: signal(null),
+            filter: signal({ search: '', make: null, model: null, status: null, agingOnly: false }),
+            filteredVehicles: signal([]),
+            kpis: signal({ totalVehicles: 0, agingCount: 0, agingPercentage: 0, averageAgeDays: 0 }),
+            availableMakes: signal([]),
+            availableModels: signal([]),
+          },
+        },
+      ],
+    });
+    const loadingFixture = TestBed.createComponent(InventoryDashboard);
+    await loadingFixture.whenStable();
+
+    const spinner = loadingFixture.nativeElement.querySelector('mat-spinner');
+    expect(spinner?.getAttribute('aria-label')).toBe('Loading inventory');
+    expect(spinner?.getAttribute('role')).toBe('status');
+  });
 });
 ```
+
+> **Added after real execution (2026-07-10):** the two accessibility tests above (`gives the photo and actions columns...`, `gives the loading spinner...`) were added following the accessibility review noted in Step 7 — they weren't in this task's original test list. The second test needs `TestBed.resetTestingModule()` before reconfiguring, since `beforeEach` already instantiated the component once for the other tests in this `describe` block.
 
 - [ ] **Step 6: Run test to verify it fails**
 
@@ -2302,6 +2575,8 @@ Run: `cd app && npx ng test --include="**/inventory-dashboard.spec.ts"`
 Expected: FAIL — module not found.
 
 - [ ] **Step 7: Write the dashboard implementation**
+
+> **Updated after real execution (2026-07-10):** an accessibility review (`docs/best-practices.md` states AXE/WCAG AA compliance as a hard requirement) found the original version below had empty `<th></th>` cells for the thumbnail/actions columns (no accessible name for a screen reader) and a `<mat-spinner>` with no `aria-label`. The version shown here already has both fixed — visually-hidden `<span>` column labels and `aria-label`/`role="status"` on the spinner — via a `.visually-hidden` CSS clip technique (not `display:none`, which would also remove the text from the accessibility tree).
 
 ```typescript
 // app/src/app/features/inventory/feature/inventory-dashboard/inventory-dashboard.ts
@@ -2337,7 +2612,7 @@ import { VehicleFilter } from '../../models/vehicle-filter.model';
     />
 
     @if (store.loading()) {
-      <mat-spinner diameter="32" />
+      <mat-spinner diameter="32" aria-label="Loading inventory" role="status" />
     } @else if (store.error(); as error) {
       <p class="error" role="alert">Couldn't load inventory: {{ error }}</p>
     } @else if (store.filteredVehicles().length === 0) {
@@ -2345,7 +2620,15 @@ import { VehicleFilter } from '../../models/vehicle-filter.model';
     } @else {
       <table>
         <thead>
-          <tr><th></th><th>VIN</th><th>Make</th><th>Model</th><th>Age</th><th>Status</th><th></th></tr>
+          <tr>
+            <th><span class="visually-hidden">Photo</span></th>
+            <th>VIN</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Age</th>
+            <th>Status</th>
+            <th><span class="visually-hidden">Actions</span></th>
+          </tr>
         </thead>
         <tbody>
           @for (vehicle of store.filteredVehicles(); track vehicle.id) {
@@ -2379,6 +2662,17 @@ import { VehicleFilter } from '../../models/vehicle-filter.model';
       height: auto;
       border-radius: 4px;
     }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
   `,
 })
 export class InventoryDashboard implements OnInit {
@@ -2397,7 +2691,7 @@ export class InventoryDashboard implements OnInit {
 - [ ] **Step 8: Run test to verify it passes**
 
 Run: `cd app && npx ng test --include="**/inventory-dashboard.spec.ts"`
-Expected: PASS (3 tests).
+Expected: PASS (5 tests — the original 3 plus 2 accessibility tests added after the review above: one asserting the visually-hidden column labels, one asserting the spinner's `aria-label`/`role`).
 
 - [ ] **Step 9: Commit**
 
@@ -2441,8 +2735,49 @@ describe('LoggerService', () => {
     expect(spy).toHaveBeenCalledWith('[2026-07-09T00:00:00.000Z] [INFO] vehicles loaded', { count: 130 });
     spy.mockRestore();
   });
+
+  it('logs warnings via console.warn with the WARN level tag', () => {
+    TestBed.configureTestingModule({
+      providers: [{ provide: ClockService, useValue: { now: () => new Date('2026-07-09T00:00:00.000Z') } }],
+    });
+    const logger = TestBed.inject(LoggerService);
+    const spy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    logger.warn('retrying request', { attempt: 2 });
+
+    expect(spy).toHaveBeenCalledWith('[2026-07-09T00:00:00.000Z] [WARN] retrying request', { attempt: 2 });
+    spy.mockRestore();
+  });
+
+  it('logs errors via console.error with the ERROR level tag', () => {
+    TestBed.configureTestingModule({
+      providers: [{ provide: ClockService, useValue: { now: () => new Date('2026-07-09T00:00:00.000Z') } }],
+    });
+    const logger = TestBed.inject(LoggerService);
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    logger.error('request failed', { status: 503 });
+
+    expect(spy).toHaveBeenCalledWith('[2026-07-09T00:00:00.000Z] [ERROR] request failed', { status: 503 });
+    spy.mockRestore();
+  });
+
+  it('omits the context argument entirely when none is provided', () => {
+    TestBed.configureTestingModule({
+      providers: [{ provide: ClockService, useValue: { now: () => new Date('2026-07-09T00:00:00.000Z') } }],
+    });
+    const logger = TestBed.inject(LoggerService);
+    const spy = vi.spyOn(console, 'info').mockImplementation(() => undefined);
+
+    logger.info('no context here');
+
+    expect(spy).toHaveBeenCalledWith('[2026-07-09T00:00:00.000Z] [INFO] no context here');
+    spy.mockRestore();
+  });
 });
 ```
+
+> **Added after real execution (2026-07-10):** the three tests above (`warn`/`error`/no-context) weren't in the originally-given test list — a code-review pass found `.info()` was the only method actually exercised, leaving `.warn()`/`.error()` and the context-omitted path untested despite the implementation correctly handling all of them.
 
 - [ ] **Step 2: Run test to verify it fails**
 
@@ -2489,15 +2824,15 @@ export class LoggerService {
 - [ ] **Step 4: Run test to verify it passes**
 
 Run: `cd app && npx ng test --include="**/logger.service.spec.ts"`
-Expected: PASS (1 test).
+Expected: PASS (4 tests — the original 1 plus 3 added after the review noted above).
 
 - [ ] **Step 5: Write the failing test for the HTTP logging interceptor**
 
 ```typescript
 // app/src/app/core/http-logging.interceptor.spec.ts
-import { HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpRequest, HttpResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { httpLoggingInterceptor } from './http-logging.interceptor';
 import { LoggerService } from './logger.service';
 
@@ -2519,8 +2854,32 @@ describe('httpLoggingInterceptor', () => {
         });
       });
     }));
+
+  it('logs the method, url, and error status when the request fails, and still propagates the error', () =>
+    new Promise<void>((resolve) => {
+      const errorSpy = vi.fn();
+      TestBed.configureTestingModule({
+        providers: [{ provide: LoggerService, useValue: { info: vi.fn(), error: errorSpy } }],
+      });
+
+      const req = new HttpRequest('GET', '/api/vehicles');
+      const failure = new HttpErrorResponse({ status: 503, statusText: 'Service Unavailable' });
+      const next = () => throwError(() => failure);
+
+      TestBed.runInInjectionContext(() => {
+        httpLoggingInterceptor(req, next).subscribe({
+          error: (err) => {
+            expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('GET /api/vehicles -> 503'));
+            expect(err).toBe(failure); // the interceptor must not swallow the error
+            resolve();
+          },
+        });
+      });
+    }));
 });
 ```
+
+> **Added after real execution (2026-07-10):** the second test above (the error/`catchError` path) wasn't in the originally-given test list — the given test only exercised the success path, leaving the interceptor's `catchError` branch (which correctly logs and re-throws) completely untested despite being real, working code.
 
 - [ ] **Step 6: Run test to verify it fails**
 
@@ -2559,7 +2918,7 @@ export const httpLoggingInterceptor: HttpInterceptorFn = (req, next) => {
 - [ ] **Step 8: Run test to verify it passes**
 
 Run: `cd app && npx ng test --include="**/http-logging.interceptor.spec.ts"`
-Expected: PASS (1 test).
+Expected: PASS (2 tests — the original 1 plus the error-path test added after the review noted above).
 
 - [ ] **Step 9: Commit**
 
@@ -2640,7 +2999,9 @@ Expected: PASS (1 test).
 
 - [ ] **Step 5: Wire providers and routes**
 
-By this point `app.config.ts` and `app.routes.ts` already exist and have been through two prior modifications (`ng new --zoneless` in Task 1 Step 2, `ng add @angular/material --animations=enabled` in Task 1 Step 3 — the latter already inserts `provideAnimationsAsync()` into the `providers` array). The blocks below show the **complete intended final contents** of both files, not a diff — reconcile them with whatever the CLI already generated (e.g. don't add a second `provideAnimationsAsync()` call) rather than appending blindly.
+By this point `app.config.ts` and `app.routes.ts` already exist and have been through two prior modifications (`ng new` in Task 1 Step 2, `ng add @angular/material` in Task 1 Step 3). The blocks below show the **complete intended final contents** of both files, not a diff — reconcile them with whatever the CLI already generated rather than appending blindly.
+>
+> **Corrected during Task 1 execution:** neither prior step adds `provideAnimationsAsync()` — Material 22's `ng-add` schematic has no `--animations` flag/step at all (confirmed against the actual installed schematic; see Task 1 Step 3's note), and `ng new --zoneless=true` only omits the zone-provider block, it never adds a zoneless-specific one either (see Task 1 Step 2's note). Both `provideZonelessChangeDetection()` and `provideAnimationsAsync()` in the `app.config.ts` block below are being added here, for the first time, by this task — not reconciling against something the CLI already inserted.
 
 ```typescript
 // app/src/app/app.config.ts
@@ -2754,7 +3115,7 @@ Expected: FAIL — module not found.
 
 ```typescript
 // app/src/app/core/current-user.service.ts
-import { Service, signal } from '@angular/core';
+import { Service, Signal, signal } from '@angular/core';
 
 export interface CurrentUser {
   name: string;
@@ -2769,7 +3130,15 @@ export interface CurrentUser {
  */
 @Service()
 export class CurrentUserService {
-  readonly currentUser = signal<CurrentUser>({ name: 'Alex Manager', role: 'manager' });
+  // Typed as the read-only `Signal`, not the inferred `WritableSignal` — consumers must
+  // not be able to mutate the mocked identity, matching VehicleStore's pattern of never
+  // exposing a writable signal publicly. (Corrected 2026-07-10: the original code sample
+  // here left this as the inferred WritableSignal despite this file's own "Produces" line
+  // declaring `Signal<...>` — a real, if easily-fixed, type-safety gap caught by review.)
+  readonly currentUser: Signal<CurrentUser> = signal<CurrentUser>({
+    name: 'Alex Manager',
+    role: 'manager',
+  });
 }
 ```
 
@@ -2925,7 +3294,10 @@ export class ActionLogDialog {
     required(schemaPath.actionType, { message: 'Please select an action' });
   });
 
-  save(): Promise<void> {
+  // Verified during Task 19 execution against the real @angular/forms@22.0.6 types:
+  // submit() resolves Promise<boolean> (whether the form was valid and submitted), not
+  // Promise<void> as originally assumed here — a type-only correction, no behavior change.
+  save(): Promise<boolean> {
     return submit(this.actionForm, async () => {
       const { actionType, note } = this.formModel();
       this.dialogRef.close({
@@ -3133,7 +3505,7 @@ git commit -m "feat: add ActionLogDialog (Signal Forms) and VehicleDetail (NgOpt
 - Consumes: the running app (`http://localhost:4200`) and mock server (`http://localhost:3001`) started per Task 17 Step 6.
 - Produces: 3 e2e scenarios proving the unit-tested business logic is actually wired into the running UI.
 
-- [ ] **Step 1: Write `playwright.config.ts`** (Playwright was already installed in Task 1 Step 5)
+- [ ] **Step 1: Write `playwright.config.ts`** (Playwright was already installed in Task 1 Step 8)
 
 ```typescript
 // app/playwright.config.ts
@@ -3189,7 +3561,19 @@ test('logs a new action from the detail page and sees it appear in the history',
   await page.getByRole('link', { name: /View \/ Log Action/i }).first().click();
   await page.getByRole('button', { name: 'Log Action' }).click();
 
-  await page.getByLabel('Action').selectOption({ label: 'Price Reduction Planned' });
+  // getByLabel('Action') is ambiguous here — verified during Task 20 execution (2026-07-10)
+  // by actually running the suite, not assumed: getByLabel does substring, case-insensitive
+  // matching by default, and the dialog's own accessible name (from aria-labelledby ->
+  // <h2 mat-dialog-title>Log an Action</h2>) contains the substring "Action" too, so it's a
+  // strict-mode violation (matches both the mat-dialog-container and the <select>). Passing
+  // { exact: true } doesn't fix it either — it times out, because getByLabel derives the label
+  // text from the wrapping <label>Action<select>...<option>s...</select></label>'s raw DOM
+  // textContent, which includes the options' rendered text, not just "Action". The select's
+  // true accessible name (confirmed via page.getByRole('dialog').ariaSnapshot()) is the clean
+  // "Action", so anchoring on role + accessible name sidesteps the mismatch entirely.
+  await page.getByRole('combobox', { name: 'Action', exact: true }).selectOption({
+    label: 'Price Reduction Planned',
+  });
   await page.getByLabel('Note').fill('Playwright e2e test note');
   await page.getByRole('button', { name: 'Save' }).click();
 
@@ -3388,3 +3772,20 @@ Re-read `KeyloopCodingChallange.pdf` in full and cross-checked every explicit re
 **Conclusion: green light to move from planning to execution**, pending the user's explicit go-ahead per the planning-phase rule.
 
 **Follow-up (same pass):** the user asked what happens if a token/context limit is hit *mid-task* rather than between tasks — a real gap, since the plan's one-commit-per-task granularity leaves no trace of a test written but not yet implemented. Added a **"Commit Strategy: Red/Green Checkpoints"** section (before "Task Breakdown") requiring a commit after every task's "verify the test fails" step, not just after the final "verify it passes" step, so `git log` alone (no code re-reading) distinguishes "test written, not yet implemented" from "implemented and green" for any interrupted task.
+
+## Task 1 Execution Corrections (2026-07-10)
+
+Task 1 was executed for real (branch `implement-inventory-dashboard`, commit `ace52ea`). Three of this plan's pre-execution assumptions about the Angular 22.0.6 / Angular Material 22.0.4 CLI turned out to be wrong once run against the actual tooling, not the `@schematics/angular@22.0.5` schema snapshot this plan was originally verified against — corrected in place above (Task 1 Steps 2–3, Task 17 Step 5's note, "Angular 22 Revision" point 3):
+
+- `ng new` does not accept `--skip-confirmation` (only `ng add` does) — use `--interactive=false`.
+- Angular Material 22's `ng-add` schematic is M3-only: `indigo-pink` and the `--typography`/`--animations` flags no longer exist. Only 4 named palette pairs are valid (`azure-blue`, `rose-red`, `magenta-violet`, `cyan-orange`); `magenta-violet` was chosen as the closest analog to the original indigo-pink intent and confirmed with the user.
+- Neither `ng new --zoneless=true` nor `ng add @angular/material` adds an explicit provider call for zoneless or animations — `app.config.ts` as freshly scaffolded has neither `provideZonelessChangeDetection()` nor `provideAnimationsAsync()`. Both are real, valid APIs; they're just added explicitly by Task 17, not auto-inserted earlier as this plan previously assumed.
+
+No functional impact on later tasks: Task 17's `app.config.ts` code block already writes both provider calls explicitly regardless of what earlier steps generate. This section exists so the discrepancy is documented once, in the place future re-reads will find it, rather than resurfacing as a surprise. Also noted for awareness, not action: every `npm`/`ng` command printed an `EBADENGINE` warning (installed Node 25.2.1 vs. the toolchain's preferred `^22.22.3 || ^24.15.0 || >=26.0.0`) — nothing failed because of it, but it's a first place to check if something flaky turns up in a later task.
+
+**Follow-up (2026-07-10, after all 23 tasks executed):** Task 1 above was retroactively amended with three steps that didn't exist in the originally-executed version, once later tasks discovered gaps that should have been caught at scaffolding time rather than several tasks later:
+- **Step 4** (`@angular/animations` install) — the original Task 1 didn't install this; its absence wasn't discovered until Task 17's `ng build` failed in production (Task 17's own Execution Corrections/fix commit covers the discovery; installing it in Task 1 means a from-scratch re-run of this plan would never hit that failure).
+- **Step 5** (removing the `ng new` scaffold placeholder from `app.html`/`app.ts`/`app.spec.ts`) — not discovered until Task 20's Playwright suite hit a two-`<h1>` strict-mode violation, 19 tasks later. No unit test had ever rendered the routed root shell to catch it sooner.
+- **Step 9** (`@vitest/coverage-v8` install) — not discovered until Task 23's final verification pass ran `npm test -- --coverage` for the first time and it failed outright with a missing-provider error.
+
+All three are now genuinely part of Task 1 (steps renumbered accordingly: what was Step 4 is now Step 6, old Step 5 is now Step 7, old Step 6 is now Step 8, old Step 7/Commit is now Step 10), so a from-scratch execution of this plan today would not reproduce any of these three gaps.

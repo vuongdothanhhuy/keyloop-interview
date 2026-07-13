@@ -1,28 +1,40 @@
-# Angular specific
-/dist/
-/out-tsc/
-/tmp/
-/coverage/
-/e2e/test-output/
-/.angular/
-.angular/
+# This is a monorepo of two sibling npm packages (app/, mock-server/), each
+# with its own nested .gitignore for its own build output and node_modules.
+# These root-level rules are a safety net that apply at any depth, in case a
+# tool writes build artefacts outside those per-package .gitignore scopes.
 
-# Node modules and dependency files
-/node_modules/
-/package-lock.json
-/yarn.lock
-
-# Environment files
-/.env
-
-# Angular CLI and build artefacts
-/.angular-cli.json
-/.ng/
-
-# TypeScript cache
-*.tsbuildinfo
-
-# Logs
+# Node
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+yarn.lock
+# package-lock.json is intentionally NOT ignored (see app/package-lock.json,
+# mock-server/package-lock.json) - this is a graded take-home submission, and
+# several real bugs during implementation traced back to caret-ranged
+# dependencies resolving differently than what was actually tested (Angular
+# Material's theming schema, `ng new`'s flags, the `@angular/animations`
+# peer-dependency gap). Committing exact resolved versions matters more here
+# than keeping the git history free of lockfile diffs.
+
+# Build output / caches
+dist/
+out-tsc/
+tmp/
+coverage/
+.angular/
+*.tsbuildinfo
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Environment files
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
