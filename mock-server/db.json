@@ -13,7 +13,7 @@
       "mileage": 11404,
       "price": 53615,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-11",
+      "intakeDate": "2026-04-14",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/1WFFB5W0A94HGGLUR/400/300",
       "imageWidth": 400,
@@ -32,7 +32,7 @@
       "mileage": 19380,
       "price": 61794,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-10",
+      "intakeDate": "2026-04-13",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/BXFC883LDZRETB7JY/400/300",
       "imageWidth": 400,
@@ -51,7 +51,7 @@
       "mileage": 8965,
       "price": 18141,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-08-26",
+      "intakeDate": "2025-08-29",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/CGBLNJ4MKUE3C92GA/400/300",
       "imageWidth": 400,
@@ -70,7 +70,7 @@
       "mileage": 18890,
       "price": 24126,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-14",
+      "intakeDate": "2026-06-17",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/L1Y6SD02V2TURADBY/400/300",
       "imageWidth": 400,
@@ -89,7 +89,7 @@
       "mileage": 12972,
       "price": 49260,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-13",
+      "intakeDate": "2026-04-16",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/X53G6U36LDHR35ATP/400/300",
       "imageWidth": 400,
@@ -108,7 +108,7 @@
       "mileage": 20884,
       "price": 29001,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-07",
+      "intakeDate": "2026-07-10",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/KKBXTBK6HET9HZ2H1/400/300",
       "imageWidth": 400,
@@ -127,7 +127,7 @@
       "mileage": 8479,
       "price": 30508,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-01-20",
+      "intakeDate": "2026-01-23",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/THYFZN7EMD75JY3VU/400/300",
       "imageWidth": 400,
@@ -146,7 +146,7 @@
       "mileage": 9196,
       "price": 26055,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-13",
+      "intakeDate": "2026-04-16",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/CF6XADYAFVZYH0HL1/400/300",
       "imageWidth": 400,
@@ -165,7 +165,7 @@
       "mileage": 21280,
       "price": 28797,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-21",
+      "intakeDate": "2026-05-24",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/3TWTG0KAYF887NA7R/400/300",
       "imageWidth": 400,
@@ -184,7 +184,7 @@
       "mileage": 8453,
       "price": 31906,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-19",
+      "intakeDate": "2026-05-22",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/DX9EU5100MK3357TT/400/300",
       "imageWidth": 400,
@@ -203,7 +203,7 @@
       "mileage": 10977,
       "price": 16158,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-14",
+      "intakeDate": "2026-04-17",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/KWBB4MEU2HXCBUUY0/400/300",
       "imageWidth": 400,
@@ -222,7 +222,7 @@
       "mileage": 2450,
       "price": 38056,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-25",
+      "intakeDate": "2026-06-28",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/FFJV0YK81VXPJM2AD/400/300",
       "imageWidth": 400,
@@ -241,7 +241,7 @@
       "mileage": 4898,
       "price": 15676,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-09",
+      "intakeDate": "2026-07-12",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/XBNXT5YFCYAW8VNYS/400/300",
       "imageWidth": 400,
@@ -260,7 +260,7 @@
       "mileage": 10728,
       "price": 51796,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-01",
+      "intakeDate": "2026-04-04",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/L4A3KDZX513KF139P/400/300",
       "imageWidth": 400,
@@ -279,7 +279,7 @@
       "mileage": 11041,
       "price": 59049,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-30",
+      "intakeDate": "2026-07-03",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/L6NA6DL88VXRKLZ13/400/300",
       "imageWidth": 400,
@@ -298,7 +298,7 @@
       "mileage": 12318,
       "price": 12601,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-05",
+      "intakeDate": "2026-07-08",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/DC0C40CC9NN3891NC/400/300",
       "imageWidth": 400,
@@ -317,7 +317,7 @@
       "mileage": 14610,
       "price": 59762,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-15",
+      "intakeDate": "2026-06-18",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/1W8NK5H8A9B6U9CV8/400/300",
       "imageWidth": 400,
@@ -336,7 +336,7 @@
       "mileage": 21653,
       "price": 14396,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-06",
+      "intakeDate": "2026-06-09",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/XKGSMWC990UL3ZF74/400/300",
       "imageWidth": 400,
@@ -355,7 +355,7 @@
       "mileage": 5720,
       "price": 47600,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-03-09",
+      "intakeDate": "2026-03-12",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/WN944SPKB5399V285/400/300",
       "imageWidth": 400,
@@ -374,7 +374,7 @@
       "mileage": 19593,
       "price": 33017,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-01-23",
+      "intakeDate": "2026-01-26",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/2U5VV5PEA1X0HEAMW/400/300",
       "imageWidth": 400,
@@ -393,7 +393,7 @@
       "mileage": 4227,
       "price": 26765,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-02",
+      "intakeDate": "2026-07-05",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/TJS9TLXHCEEFEYGM6/400/300",
       "imageWidth": 400,
@@ -412,7 +412,7 @@
       "mileage": 6314,
       "price": 49808,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-09-20",
+      "intakeDate": "2025-09-23",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/NTZB3XC57CK31GGNS/400/300",
       "imageWidth": 400,
@@ -431,7 +431,7 @@
       "mileage": 16150,
       "price": 42251,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-12",
+      "intakeDate": "2026-04-15",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/UJJNALGLD6WZ3TCUW/400/300",
       "imageWidth": 400,
@@ -450,7 +450,7 @@
       "mileage": 7003,
       "price": 52783,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-11",
+      "intakeDate": "2026-06-14",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/FJFGKF6CUP9DP853J/400/300",
       "imageWidth": 400,
@@ -469,7 +469,7 @@
       "mileage": 20767,
       "price": 63147,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-05",
+      "intakeDate": "2026-05-08",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/DXKWFSUBMEC9L3JZ2/400/300",
       "imageWidth": 400,
@@ -488,7 +488,7 @@
       "mileage": 22490,
       "price": 32346,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-19",
+      "intakeDate": "2026-04-22",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/1V4E3GFF3YUM5N3RN/400/300",
       "imageWidth": 400,
@@ -507,7 +507,7 @@
       "mileage": 19934,
       "price": 19945,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-06",
+      "intakeDate": "2026-05-09",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/XME3XU63FLJ1BV25M/400/300",
       "imageWidth": 400,
@@ -526,7 +526,7 @@
       "mileage": 15170,
       "price": 34479,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-01-16",
+      "intakeDate": "2026-01-19",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/UJMF6WPS8FWTXA57V/400/300",
       "imageWidth": 400,
@@ -545,7 +545,7 @@
       "mileage": 3525,
       "price": 21348,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-02",
+      "intakeDate": "2026-06-05",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/94E75UWPBM3AMPU7M/400/300",
       "imageWidth": 400,
@@ -564,7 +564,7 @@
       "mileage": 11335,
       "price": 39793,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-04",
+      "intakeDate": "2026-06-07",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/XAYF8EPC9TWC1G6GG/400/300",
       "imageWidth": 400,
@@ -583,7 +583,7 @@
       "mileage": 18058,
       "price": 57352,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-10-15",
+      "intakeDate": "2025-10-18",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/58NJYPAF0YAHHZAD3/400/300",
       "imageWidth": 400,
@@ -602,7 +602,7 @@
       "mileage": 3507,
       "price": 58029,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-20",
+      "intakeDate": "2026-04-23",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/6ACGAFWP63MJNWJXP/400/300",
       "imageWidth": 400,
@@ -621,7 +621,7 @@
       "mileage": 21848,
       "price": 43663,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-10",
+      "intakeDate": "2026-02-13",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/JUXJE49UFJA7DWKVY/400/300",
       "imageWidth": 400,
@@ -640,7 +640,7 @@
       "mileage": 1290,
       "price": 38307,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-03-11",
+      "intakeDate": "2026-03-14",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/NUBF1CWJNKM0KVSY7/400/300",
       "imageWidth": 400,
@@ -659,7 +659,7 @@
       "mileage": 17309,
       "price": 57008,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-27",
+      "intakeDate": "2026-05-30",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/1TZRJ43ZJWMD7E8RG/400/300",
       "imageWidth": 400,
@@ -678,7 +678,7 @@
       "mileage": 17409,
       "price": 30013,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-05",
+      "intakeDate": "2026-04-08",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/B07FV7B0K798S54L4/400/300",
       "imageWidth": 400,
@@ -697,7 +697,7 @@
       "mileage": 10537,
       "price": 51092,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-30",
+      "intakeDate": "2026-07-03",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/LX6XHA5A5U739M2PS/400/300",
       "imageWidth": 400,
@@ -716,7 +716,7 @@
       "mileage": 12820,
       "price": 24225,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-20",
+      "intakeDate": "2026-06-23",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/HBA9RNZH82CP68SXF/400/300",
       "imageWidth": 400,
@@ -735,7 +735,7 @@
       "mileage": 21554,
       "price": 54905,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-20",
+      "intakeDate": "2026-02-23",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/B8679FP2ZF3HHUWWD/400/300",
       "imageWidth": 400,
@@ -754,7 +754,7 @@
       "mileage": 20926,
       "price": 48966,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-14",
+      "intakeDate": "2026-02-17",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/J0TCHZC5TSW4MZVJ5/400/300",
       "imageWidth": 400,
@@ -773,7 +773,7 @@
       "mileage": 24075,
       "price": 30119,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-01-17",
+      "intakeDate": "2026-01-20",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/5A4EM1F34TAKX9XJX/400/300",
       "imageWidth": 400,
@@ -792,7 +792,7 @@
       "mileage": 24929,
       "price": 34588,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-26",
+      "intakeDate": "2026-06-29",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/CK0CWMXB5981E2AAL/400/300",
       "imageWidth": 400,
@@ -811,7 +811,7 @@
       "mileage": 24205,
       "price": 21833,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-07-24",
+      "intakeDate": "2025-07-27",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/CZYK8ER8PYPK9P6HH/400/300",
       "imageWidth": 400,
@@ -830,7 +830,7 @@
       "mileage": 12001,
       "price": 43801,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-08",
+      "intakeDate": "2026-05-11",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/XEB7X3SDEZRGTCWJ3/400/300",
       "imageWidth": 400,
@@ -849,7 +849,7 @@
       "mileage": 4191,
       "price": 17542,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-06",
+      "intakeDate": "2026-02-09",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/SDH9ETX0VALUCMBCP/400/300",
       "imageWidth": 400,
@@ -868,7 +868,7 @@
       "mileage": 8426,
       "price": 21652,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-10",
+      "intakeDate": "2026-02-13",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/U0503M3C6V3RYU1CB/400/300",
       "imageWidth": 400,
@@ -887,7 +887,7 @@
       "mileage": 12169,
       "price": 58292,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-10-10",
+      "intakeDate": "2025-10-13",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/H99YGZCBJS501RMN9/400/300",
       "imageWidth": 400,
@@ -906,7 +906,7 @@
       "mileage": 6457,
       "price": 46807,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-01",
+      "intakeDate": "2026-05-04",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/GXX1E06FH9F5TJ5RT/400/300",
       "imageWidth": 400,
@@ -925,7 +925,7 @@
       "mileage": 6747,
       "price": 15025,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-16",
+      "intakeDate": "2026-04-19",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/HCFUM4RJX0FFB1YS4/400/300",
       "imageWidth": 400,
@@ -944,7 +944,7 @@
       "mileage": 2352,
       "price": 47648,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-22",
+      "intakeDate": "2026-04-25",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/7LTBE98A8Y5SUTZEA/400/300",
       "imageWidth": 400,
@@ -963,7 +963,7 @@
       "mileage": 14178,
       "price": 51138,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-10-14",
+      "intakeDate": "2025-10-17",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/8ZTX5VB7ZZHYNYDY9/400/300",
       "imageWidth": 400,
@@ -982,7 +982,7 @@
       "mileage": 21584,
       "price": 39511,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-08",
+      "intakeDate": "2026-07-11",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/23R3DUALNPZNRHNHC/400/300",
       "imageWidth": 400,
@@ -1001,7 +1001,7 @@
       "mileage": 20077,
       "price": 40576,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-16",
+      "intakeDate": "2026-05-19",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/WUX2308AGAY6J7B7M/400/300",
       "imageWidth": 400,
@@ -1020,7 +1020,7 @@
       "mileage": 10279,
       "price": 56513,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-10-25",
+      "intakeDate": "2025-10-28",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/EFZFU0DVJ8S3VBX8W/400/300",
       "imageWidth": 400,
@@ -1039,7 +1039,7 @@
       "mileage": 17380,
       "price": 33429,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-06",
+      "intakeDate": "2026-05-09",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/4PZDXRWF15HDAYXVH/400/300",
       "imageWidth": 400,
@@ -1058,7 +1058,7 @@
       "mileage": 16739,
       "price": 64690,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-19",
+      "intakeDate": "2026-02-22",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/D0WKCC6GLHMCUC3HU/400/300",
       "imageWidth": 400,
@@ -1077,7 +1077,7 @@
       "mileage": 2232,
       "price": 52030,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-26",
+      "intakeDate": "2026-04-29",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/V8FZGUDR1MY37HPF9/400/300",
       "imageWidth": 400,
@@ -1096,7 +1096,7 @@
       "mileage": 20149,
       "price": 53872,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-03",
+      "intakeDate": "2026-07-06",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/LJMC7VLPRWU7T95G7/400/300",
       "imageWidth": 400,
@@ -1115,7 +1115,7 @@
       "mileage": 7799,
       "price": 38826,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-01",
+      "intakeDate": "2026-07-04",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/M9Y4E57TX2FTPENCA/400/300",
       "imageWidth": 400,
@@ -1134,7 +1134,7 @@
       "mileage": 15599,
       "price": 39933,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-29",
+      "intakeDate": "2026-07-02",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/YFC2SB9BZ9HEELDZC/400/300",
       "imageWidth": 400,
@@ -1153,7 +1153,7 @@
       "mileage": 11362,
       "price": 56751,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-27",
+      "intakeDate": "2026-05-30",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/NP412APSAJ2EUHAH9/400/300",
       "imageWidth": 400,
@@ -1172,7 +1172,7 @@
       "mileage": 12963,
       "price": 19959,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-23",
+      "intakeDate": "2026-02-26",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/SNPS2682LZRJ4B6SY/400/300",
       "imageWidth": 400,
@@ -1191,7 +1191,7 @@
       "mileage": 15619,
       "price": 32243,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-29",
+      "intakeDate": "2026-07-02",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/0CCA81MKM2YGFDY2J/400/300",
       "imageWidth": 400,
@@ -1210,7 +1210,7 @@
       "mileage": 4940,
       "price": 59007,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-03-16",
+      "intakeDate": "2026-03-19",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/UB83K9WW13YEM7HNR/400/300",
       "imageWidth": 400,
@@ -1229,7 +1229,7 @@
       "mileage": 14761,
       "price": 38943,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-20",
+      "intakeDate": "2026-05-23",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/7J1S412YFU97BFE03/400/300",
       "imageWidth": 400,
@@ -1248,7 +1248,7 @@
       "mileage": 5066,
       "price": 62778,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-11",
+      "intakeDate": "2026-06-14",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/2FSAJ09DP3GV1XGM2/400/300",
       "imageWidth": 400,
@@ -1267,7 +1267,7 @@
       "mileage": 16913,
       "price": 54665,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-26",
+      "intakeDate": "2026-04-29",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/9NR06WNPZAXM3DWSY/400/300",
       "imageWidth": 400,
@@ -1286,7 +1286,7 @@
       "mileage": 9599,
       "price": 42309,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-03-25",
+      "intakeDate": "2026-03-28",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/M203URELRCHW197YP/400/300",
       "imageWidth": 400,
@@ -1305,7 +1305,7 @@
       "mileage": 15258,
       "price": 19173,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-10",
+      "intakeDate": "2026-02-13",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/A4KUK8JR54G3SSEC1/400/300",
       "imageWidth": 400,
@@ -1324,7 +1324,7 @@
       "mileage": 14006,
       "price": 61652,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-02",
+      "intakeDate": "2026-06-05",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/KJJ6JJ2R2CTBC6EUP/400/300",
       "imageWidth": 400,
@@ -1343,7 +1343,7 @@
       "mileage": 11460,
       "price": 37689,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-15",
+      "intakeDate": "2026-04-18",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/JYGVS9XMDEHJ5VUD5/400/300",
       "imageWidth": 400,
@@ -1362,7 +1362,7 @@
       "mileage": 19302,
       "price": 13439,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-29",
+      "intakeDate": "2026-06-01",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/PYUCT3SB2GJFL1UG5/400/300",
       "imageWidth": 400,
@@ -1381,7 +1381,7 @@
       "mileage": 6926,
       "price": 64127,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-22",
+      "intakeDate": "2026-06-25",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/DY4N28GUK3WX3P7UF/400/300",
       "imageWidth": 400,
@@ -1400,7 +1400,7 @@
       "mileage": 18289,
       "price": 21933,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-07-14",
+      "intakeDate": "2025-07-17",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/FRXC63T8P9ZXF6RFA/400/300",
       "imageWidth": 400,
@@ -1419,7 +1419,7 @@
       "mileage": 15856,
       "price": 18692,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-03-12",
+      "intakeDate": "2026-03-15",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/S4SMT4MF04DHEMR1Y/400/300",
       "imageWidth": 400,
@@ -1438,7 +1438,7 @@
       "mileage": 11179,
       "price": 36399,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-09-12",
+      "intakeDate": "2025-09-15",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/5H4KYZTLHBLY7523Y/400/300",
       "imageWidth": 400,
@@ -1457,7 +1457,7 @@
       "mileage": 315,
       "price": 36845,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-17",
+      "intakeDate": "2026-05-20",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/PB17K5K713A80L4K5/400/300",
       "imageWidth": 400,
@@ -1476,7 +1476,7 @@
       "mileage": 20733,
       "price": 58586,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-23",
+      "intakeDate": "2026-02-26",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/B65ZW6GCH3BW95UC4/400/300",
       "imageWidth": 400,
@@ -1495,7 +1495,7 @@
       "mileage": 11815,
       "price": 14419,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-15",
+      "intakeDate": "2026-06-18",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/2W6RXXW0HTDNTY8W1/400/300",
       "imageWidth": 400,
@@ -1514,7 +1514,7 @@
       "mileage": 21857,
       "price": 38158,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-01-11",
+      "intakeDate": "2026-01-14",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/GXKGUAAHBDM3VTK7P/400/300",
       "imageWidth": 400,
@@ -1533,7 +1533,7 @@
       "mileage": 18781,
       "price": 15763,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-08",
+      "intakeDate": "2026-06-11",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/PP60XL484AYBJBWZD/400/300",
       "imageWidth": 400,
@@ -1552,7 +1552,7 @@
       "mileage": 18231,
       "price": 46572,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-08-11",
+      "intakeDate": "2025-08-14",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/MWAX7X50D6CUEAPKT/400/300",
       "imageWidth": 400,
@@ -1571,7 +1571,7 @@
       "mileage": 16147,
       "price": 45756,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-04",
+      "intakeDate": "2026-07-07",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/L3R3457RLWNW0ZNFR/400/300",
       "imageWidth": 400,
@@ -1590,7 +1590,7 @@
       "mileage": 23899,
       "price": 28640,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-08-31",
+      "intakeDate": "2025-09-03",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/WNH9RZETAT8NBBNFA/400/300",
       "imageWidth": 400,
@@ -1609,7 +1609,7 @@
       "mileage": 11104,
       "price": 45191,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-04",
+      "intakeDate": "2026-06-07",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/8NNMUFVU24RKJGBMJ/400/300",
       "imageWidth": 400,
@@ -1628,7 +1628,7 @@
       "mileage": 24525,
       "price": 37621,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-09-03",
+      "intakeDate": "2025-09-06",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/VXGPBSUH870U5E3E3/400/300",
       "imageWidth": 400,
@@ -1647,7 +1647,7 @@
       "mileage": 15667,
       "price": 61099,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-28",
+      "intakeDate": "2026-05-31",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/2NTTW59P42V8GD5R4/400/300",
       "imageWidth": 400,
@@ -1666,7 +1666,7 @@
       "mileage": 15342,
       "price": 16696,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-03",
+      "intakeDate": "2026-07-06",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/EKM3KG8A9Z4KA141E/400/300",
       "imageWidth": 400,
@@ -1685,7 +1685,7 @@
       "mileage": 8041,
       "price": 37251,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-13",
+      "intakeDate": "2026-05-16",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/MD38C8UKCT30BCPKH/400/300",
       "imageWidth": 400,
@@ -1704,7 +1704,7 @@
       "mileage": 1363,
       "price": 51678,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-10",
+      "intakeDate": "2026-07-13",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/YE6TRWXCZH043VUE2/400/300",
       "imageWidth": 400,
@@ -1723,7 +1723,7 @@
       "mileage": 15820,
       "price": 49305,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-25",
+      "intakeDate": "2026-06-28",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/0C4AJ1LDMJ4L36R7N/400/300",
       "imageWidth": 400,
@@ -1742,7 +1742,7 @@
       "mileage": 16436,
       "price": 37031,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-11-24",
+      "intakeDate": "2025-11-27",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/280KD2YBM8TRSGNNB/400/300",
       "imageWidth": 400,
@@ -1761,7 +1761,7 @@
       "mileage": 12324,
       "price": 33427,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-17",
+      "intakeDate": "2026-05-20",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/EY1LYP0G6KNBDUJ4A/400/300",
       "imageWidth": 400,
@@ -1780,7 +1780,7 @@
       "mileage": 24355,
       "price": 56895,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-20",
+      "intakeDate": "2026-04-23",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/UZL22U9EA23DJAK2U/400/300",
       "imageWidth": 400,
@@ -1799,7 +1799,7 @@
       "mileage": 14460,
       "price": 19789,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-08-24",
+      "intakeDate": "2025-08-27",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/PKCHJS1SB8829U8CN/400/300",
       "imageWidth": 400,
@@ -1818,7 +1818,7 @@
       "mileage": 10823,
       "price": 14326,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-31",
+      "intakeDate": "2026-06-03",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/M7KS60CEAXRE8UHTZ/400/300",
       "imageWidth": 400,
@@ -1837,7 +1837,7 @@
       "mileage": 13039,
       "price": 63798,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-03-27",
+      "intakeDate": "2026-03-30",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/935H8G8909VJRWCX9/400/300",
       "imageWidth": 400,
@@ -1856,7 +1856,7 @@
       "mileage": 7225,
       "price": 33085,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-06-06",
+      "intakeDate": "2025-06-09",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/YYFV2TAAM7HXHL41D/400/300",
       "imageWidth": 400,
@@ -1875,7 +1875,7 @@
       "mileage": 23762,
       "price": 42826,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-19",
+      "intakeDate": "2026-05-22",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/N178WM2JVMYHG7DTH/400/300",
       "imageWidth": 400,
@@ -1894,7 +1894,7 @@
       "mileage": 17342,
       "price": 52870,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-03-28",
+      "intakeDate": "2026-03-31",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/M686P2STGWGL5GCC8/400/300",
       "imageWidth": 400,
@@ -1913,7 +1913,7 @@
       "mileage": 8136,
       "price": 49769,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-12-02",
+      "intakeDate": "2025-12-05",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/RBE2APUB9HLLHA18H/400/300",
       "imageWidth": 400,
@@ -1932,7 +1932,7 @@
       "mileage": 23324,
       "price": 55858,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-05",
+      "intakeDate": "2026-02-08",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/91NWYCU0F2W8BJWK0/400/300",
       "imageWidth": 400,
@@ -1951,7 +1951,7 @@
       "mileage": 17594,
       "price": 63424,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-19",
+      "intakeDate": "2026-06-22",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/15K3GMM9500V8TNF2/400/300",
       "imageWidth": 400,
@@ -1970,7 +1970,7 @@
       "mileage": 308,
       "price": 47723,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-22",
+      "intakeDate": "2026-05-25",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/8BT05F3VPE5FLK5Z3/400/300",
       "imageWidth": 400,
@@ -1989,7 +1989,7 @@
       "mileage": 10803,
       "price": 63960,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-24",
+      "intakeDate": "2026-05-27",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/XM1PC2KRZLBN8YZXG/400/300",
       "imageWidth": 400,
@@ -2008,7 +2008,7 @@
       "mileage": 6688,
       "price": 12800,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-11-16",
+      "intakeDate": "2025-11-19",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/P10PMPJGSJKY8WCC8/400/300",
       "imageWidth": 400,
@@ -2027,7 +2027,7 @@
       "mileage": 4717,
       "price": 47641,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-12-19",
+      "intakeDate": "2025-12-22",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/LJW58DF816GW0ZPAW/400/300",
       "imageWidth": 400,
@@ -2046,7 +2046,7 @@
       "mileage": 11476,
       "price": 50835,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-02-09",
+      "intakeDate": "2026-02-12",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/17RJR0AWXYH0DG51A/400/300",
       "imageWidth": 400,
@@ -2065,7 +2065,7 @@
       "mileage": 17638,
       "price": 34663,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-12",
+      "intakeDate": "2026-05-15",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/347UGX11UCN7WUJN6/400/300",
       "imageWidth": 400,
@@ -2084,7 +2084,7 @@
       "mileage": 7233,
       "price": 28420,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-25",
+      "intakeDate": "2026-05-28",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/KRAKTBT7D2PYJFFCG/400/300",
       "imageWidth": 400,
@@ -2103,7 +2103,7 @@
       "mileage": 4013,
       "price": 47703,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-08",
+      "intakeDate": "2026-05-11",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/43L78LMT85DNVTG5Z/400/300",
       "imageWidth": 400,
@@ -2122,7 +2122,7 @@
       "mileage": 13924,
       "price": 34036,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-22",
+      "intakeDate": "2026-05-25",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/A01TFCAF6HMDHUXJB/400/300",
       "imageWidth": 400,
@@ -2141,7 +2141,7 @@
       "mileage": 15713,
       "price": 48498,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-07-10",
+      "intakeDate": "2026-07-13",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/TP5XUDWDMEZGN6GTP/400/300",
       "imageWidth": 400,
@@ -2160,7 +2160,7 @@
       "mileage": 1857,
       "price": 31900,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-10-07",
+      "intakeDate": "2025-10-10",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/44TM3RG56SCN36GC5/400/300",
       "imageWidth": 400,
@@ -2179,7 +2179,7 @@
       "mileage": 20076,
       "price": 39454,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-10",
+      "intakeDate": "2026-05-13",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/HMNCNS0Y0AHYSA32V/400/300",
       "imageWidth": 400,
@@ -2198,7 +2198,7 @@
       "mileage": 1928,
       "price": 48896,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-27",
+      "intakeDate": "2026-04-30",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/G6162WY6WXFS0JGLH/400/300",
       "imageWidth": 400,
@@ -2217,7 +2217,7 @@
       "mileage": 846,
       "price": 58597,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-21",
+      "intakeDate": "2026-05-24",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/ZJ7YLJGZHWJY322GC/400/300",
       "imageWidth": 400,
@@ -2236,7 +2236,7 @@
       "mileage": 9014,
       "price": 53538,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-03-13",
+      "intakeDate": "2026-03-16",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/66L6944JWCD9L1359/400/300",
       "imageWidth": 400,
@@ -2255,7 +2255,7 @@
       "mileage": 5295,
       "price": 64769,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-08-21",
+      "intakeDate": "2025-08-24",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/2X2B4XVX5WW91R0NH/400/300",
       "imageWidth": 400,
@@ -2274,7 +2274,7 @@
       "mileage": 19479,
       "price": 44314,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-01-25",
+      "intakeDate": "2026-01-28",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/BSZZN8FTZ0YKFXWF0/400/300",
       "imageWidth": 400,
@@ -2293,7 +2293,7 @@
       "mileage": 7166,
       "price": 54540,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-01-04",
+      "intakeDate": "2026-01-07",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/TPFVK7WWMBBPCX66Y/400/300",
       "imageWidth": 400,
@@ -2312,7 +2312,7 @@
       "mileage": 10996,
       "price": 26753,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-03-12",
+      "intakeDate": "2026-03-15",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/S4CMC9357CNCGHSJD/400/300",
       "imageWidth": 400,
@@ -2331,7 +2331,7 @@
       "mileage": 2061,
       "price": 36358,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-27",
+      "intakeDate": "2026-04-30",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/JMZCG3EM5FCSKV3EW/400/300",
       "imageWidth": 400,
@@ -2350,7 +2350,7 @@
       "mileage": 19063,
       "price": 18678,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-04-15",
+      "intakeDate": "2026-04-18",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/0VZ25LU496NGT1TS4/400/300",
       "imageWidth": 400,
@@ -2369,7 +2369,7 @@
       "mileage": 13922,
       "price": 56792,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-03-26",
+      "intakeDate": "2026-03-29",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/TYHVNYEVGKHG4K79V/400/300",
       "imageWidth": 400,
@@ -2388,7 +2388,7 @@
       "mileage": 3866,
       "price": 37825,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-17",
+      "intakeDate": "2026-05-20",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/5JJA53X1FSMDT7BKG/400/300",
       "imageWidth": 400,
@@ -2407,7 +2407,7 @@
       "mileage": 15210,
       "price": 26895,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-06-06",
+      "intakeDate": "2026-06-09",
       "status": "sold",
       "imageUrl": "https://picsum.photos/seed/4FBGMTX7TTBBVR4FA/400/300",
       "imageWidth": 400,
@@ -2426,7 +2426,7 @@
       "mileage": 21204,
       "price": 62200,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2025-08-01",
+      "intakeDate": "2025-08-04",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/E2HZV7NCA4U2HMA8Z/400/300",
       "imageWidth": 400,
@@ -2445,7 +2445,7 @@
       "mileage": 11171,
       "price": 38580,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-29",
+      "intakeDate": "2026-06-01",
       "status": "reserved",
       "imageUrl": "https://picsum.photos/seed/A00X9LMCRJM47GN7C/400/300",
       "imageWidth": 400,
@@ -2464,7 +2464,7 @@
       "mileage": 18375,
       "price": 40167,
       "dealershipId": "DEALER-001",
-      "intakeDate": "2026-05-27",
+      "intakeDate": "2026-05-30",
       "status": "in_stock",
       "imageUrl": "https://picsum.photos/seed/W631BAHYPP667LZJG/400/300",
       "imageWidth": 400,
@@ -2478,7 +2478,7 @@
       "actionType": "transfer_requested",
       "note": "Placeat vigilo somniculosus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-15T00:00:00.000Z"
+      "createdAt": "2026-04-18T00:00:00.000Z"
     },
     {
       "id": "1586dd95-4156-4aa1-b622-d062e838bf3e",
@@ -2486,7 +2486,7 @@
       "actionType": "manager_review",
       "note": "Quod culpa tantum excepturi spiculum curto suus tredecim.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-20T00:00:00.000Z"
+      "createdAt": "2026-04-23T00:00:00.000Z"
     },
     {
       "id": "2d8d66e4-d784-4950-a40f-f6b5acf6c4f0",
@@ -2494,7 +2494,7 @@
       "actionType": "wholesale_auction",
       "note": "Animi vigilo attonbitus qui cado cohibeo in cur.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-25T00:00:00.000Z"
+      "createdAt": "2026-04-28T00:00:00.000Z"
     },
     {
       "id": "26ce1610-a923-40df-a23d-e60096090c40",
@@ -2502,7 +2502,7 @@
       "actionType": "marketing_push",
       "note": "Illum cervus sui cernuus ventito corrupti inventore admitto cursim tristis.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-08-31T00:00:00.000Z"
+      "createdAt": "2025-09-03T00:00:00.000Z"
     },
     {
       "id": "33de175d-13c0-4775-a682-9cc22456a006",
@@ -2510,7 +2510,7 @@
       "actionType": "price_reduction_planned",
       "note": "Caveo valde vehemens clibanus calculus cunctatio caput spectaculum.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-01-25T00:00:00.000Z"
+      "createdAt": "2026-01-28T00:00:00.000Z"
     },
     {
       "id": "dad62b5a-41f2-4ffc-aa9d-4796659d3ebd",
@@ -2518,7 +2518,7 @@
       "actionType": "wholesale_auction",
       "note": "Toties adhaero validus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-01-30T00:00:00.000Z"
+      "createdAt": "2026-02-02T00:00:00.000Z"
     },
     {
       "id": "f43c4d12-fad5-4a99-8a96-4c3b3ab3029d",
@@ -2526,7 +2526,7 @@
       "actionType": "wholesale_auction",
       "note": "Demum vestrum conatus delego abutor.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-02-04T00:00:00.000Z"
+      "createdAt": "2026-02-07T00:00:00.000Z"
     },
     {
       "id": "40a6824a-f0e9-4981-9195-e62b48becaaf",
@@ -2534,7 +2534,7 @@
       "actionType": "price_reduction_planned",
       "note": "Blandior somniculosus reiciendis optio acceptus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-06T00:00:00.000Z"
+      "createdAt": "2026-04-09T00:00:00.000Z"
     },
     {
       "id": "5a8521de-a16b-4c10-8b54-08df98186963",
@@ -2542,7 +2542,7 @@
       "actionType": "marketing_push",
       "note": "Atqui votum decor.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-14T00:00:00.000Z"
+      "createdAt": "2026-03-17T00:00:00.000Z"
     },
     {
       "id": "8df9c546-aa52-4a29-bbbc-d7b920479d32",
@@ -2550,7 +2550,7 @@
       "actionType": "price_reduction_planned",
       "note": "Numquam hic ait adstringo amiculum occaecati.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-19T00:00:00.000Z"
+      "createdAt": "2026-03-22T00:00:00.000Z"
     },
     {
       "id": "83ad07b4-49ec-49b5-ba73-b85e050cb5a6",
@@ -2558,7 +2558,7 @@
       "actionType": "transfer_requested",
       "note": "Victus casso animi nulla volubilis crapula.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-24T00:00:00.000Z"
+      "createdAt": "2026-03-27T00:00:00.000Z"
     },
     {
       "id": "582af756-1e66-4a7a-80df-af279965262b",
@@ -2566,7 +2566,7 @@
       "actionType": "price_reduction_planned",
       "note": "Pariatur uter neque coniuratio thymbra harum ager.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-09-25T00:00:00.000Z"
+      "createdAt": "2025-09-28T00:00:00.000Z"
     },
     {
       "id": "e6422691-fc9d-417a-9dc4-f1ef2b0689ea",
@@ -2574,7 +2574,7 @@
       "actionType": "manager_review",
       "note": "Acerbitas vomito aiunt torrens cicuta apparatus decerno sequi creator adopto.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-10T00:00:00.000Z"
+      "createdAt": "2026-04-13T00:00:00.000Z"
     },
     {
       "id": "9e6370dd-95c8-4dac-896f-893a9209c83a",
@@ -2582,7 +2582,7 @@
       "actionType": "transfer_requested",
       "note": "Audacia balbus crepusculum admoneo.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-15T00:00:00.000Z"
+      "createdAt": "2026-04-18T00:00:00.000Z"
     },
     {
       "id": "876d2801-99e8-4f01-b028-a0fd41221835",
@@ -2590,7 +2590,7 @@
       "actionType": "wholesale_auction",
       "note": "Aranea creber itaque aestus abeo spargo sapiente cunctatio depraedor cupressus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-01-22T00:00:00.000Z"
+      "createdAt": "2026-01-25T00:00:00.000Z"
     },
     {
       "id": "0521f9b5-6312-4ca8-b7e1-45cf3dd366f2",
@@ -2598,7 +2598,7 @@
       "actionType": "marketing_push",
       "note": "Curia nesciunt tristis thymum usitas adulatio stultus apud.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-01-27T00:00:00.000Z"
+      "createdAt": "2026-01-30T00:00:00.000Z"
     },
     {
       "id": "868f2a62-2fee-4f35-aa76-59927893b05c",
@@ -2606,7 +2606,7 @@
       "actionType": "marketing_push",
       "note": "Minima theca tabesco pel depopulo appello cedo curatio.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-07-29T00:00:00.000Z"
+      "createdAt": "2025-08-01T00:00:00.000Z"
     },
     {
       "id": "984074b0-9f27-41a8-968e-30d9e9c6be92",
@@ -2614,7 +2614,7 @@
       "actionType": "price_reduction_planned",
       "note": "Cohibeo itaque odio curso.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-08-03T00:00:00.000Z"
+      "createdAt": "2025-08-06T00:00:00.000Z"
     },
     {
       "id": "1128346c-0aac-4e02-8e79-aaefb4e03e43",
@@ -2622,7 +2622,7 @@
       "actionType": "manager_review",
       "note": "Spero capitulus tempora temporibus coma cunctatio bellum.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-02-11T00:00:00.000Z"
+      "createdAt": "2026-02-14T00:00:00.000Z"
     },
     {
       "id": "fae4ccbf-62ab-4938-b46a-b3643ce5ced2",
@@ -2630,7 +2630,7 @@
       "actionType": "marketing_push",
       "note": "Advenio depereo amitto carpo comes.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-02-16T00:00:00.000Z"
+      "createdAt": "2026-02-19T00:00:00.000Z"
     },
     {
       "id": "e4ddc2bf-a58a-4814-9cd2-f5accf5d2bba",
@@ -2638,7 +2638,7 @@
       "actionType": "manager_review",
       "note": "Adnuo sunt demonstro ulciscor.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-10-19T00:00:00.000Z"
+      "createdAt": "2025-10-22T00:00:00.000Z"
     },
     {
       "id": "62d83b89-7ddb-41da-bb5e-b16e0faa43f4",
@@ -2646,7 +2646,7 @@
       "actionType": "marketing_push",
       "note": "Abstergo illum voluptates corporis.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-10-24T00:00:00.000Z"
+      "createdAt": "2025-10-27T00:00:00.000Z"
     },
     {
       "id": "5587e882-f31a-4966-8c3d-a674c859f6e5",
@@ -2654,7 +2654,7 @@
       "actionType": "marketing_push",
       "note": "Bonus a veritas tutamen talis aspicio.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-10-29T00:00:00.000Z"
+      "createdAt": "2025-11-01T00:00:00.000Z"
     },
     {
       "id": "1be61855-9b10-4f30-b306-c57a8dd0c7f7",
@@ -2662,7 +2662,7 @@
       "actionType": "wholesale_auction",
       "note": "Fugiat vulgivagus umquam alter.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-10-30T00:00:00.000Z"
+      "createdAt": "2025-11-02T00:00:00.000Z"
     },
     {
       "id": "5063d5d0-4331-4284-a66e-e751f04452c1",
@@ -2670,7 +2670,7 @@
       "actionType": "price_reduction_planned",
       "note": "Verbera auditor trado.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-02-24T00:00:00.000Z"
+      "createdAt": "2026-02-27T00:00:00.000Z"
     },
     {
       "id": "81f3d2d0-8cee-4de3-8446-682b248cba28",
@@ -2678,7 +2678,7 @@
       "actionType": "marketing_push",
       "note": "Adflicto certus vis viriliter consequuntur adimpleo.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-01T00:00:00.000Z"
+      "createdAt": "2026-03-04T00:00:00.000Z"
     },
     {
       "id": "26f2c1f6-c5a3-42fe-9eac-155a529d6233",
@@ -2686,7 +2686,7 @@
       "actionType": "wholesale_auction",
       "note": "Subito conventus tredecim barba delicate thesis attero.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-06T00:00:00.000Z"
+      "createdAt": "2026-03-09T00:00:00.000Z"
     },
     {
       "id": "e5a0b509-3612-441e-b071-4e2f3b8e8832",
@@ -2694,7 +2694,7 @@
       "actionType": "marketing_push",
       "note": "Temporibus confido viridis taceo patria.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-02-28T00:00:00.000Z"
+      "createdAt": "2026-03-03T00:00:00.000Z"
     },
     {
       "id": "0473be65-f775-4e9c-9c56-d5cf9bcd606a",
@@ -2702,7 +2702,7 @@
       "actionType": "wholesale_auction",
       "note": "Rem audentia tamquam in barba.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-30T00:00:00.000Z"
+      "createdAt": "2026-04-02T00:00:00.000Z"
     },
     {
       "id": "4b73fbf6-7e8b-4471-9300-f3ad82b9bcf9",
@@ -2710,7 +2710,7 @@
       "actionType": "wholesale_auction",
       "note": "Velit animadverto complectus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-04T00:00:00.000Z"
+      "createdAt": "2026-04-07T00:00:00.000Z"
     },
     {
       "id": "d967d5d1-cd26-42b8-aa33-058da6fbe840",
@@ -2718,7 +2718,7 @@
       "actionType": "price_reduction_planned",
       "note": "Exercitationem magni pauci aspernatur crastinus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-09T00:00:00.000Z"
+      "createdAt": "2026-04-12T00:00:00.000Z"
     },
     {
       "id": "fbec93a9-9785-483c-9216-a7485ee85b07",
@@ -2726,7 +2726,7 @@
       "actionType": "manager_review",
       "note": "Ipsum taedium deorsum.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-02-15T00:00:00.000Z"
+      "createdAt": "2026-02-18T00:00:00.000Z"
     },
     {
       "id": "1f893761-1d33-48c0-9910-0d107d460799",
@@ -2734,7 +2734,7 @@
       "actionType": "marketing_push",
       "note": "Cornu alveus tener.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-02-20T00:00:00.000Z"
+      "createdAt": "2026-02-23T00:00:00.000Z"
     },
     {
       "id": "fd9b4a77-c45e-407e-a983-5d8810f691ae",
@@ -2742,7 +2742,7 @@
       "actionType": "price_reduction_planned",
       "note": "Tener cum utroque sodalitas velum qui apostolus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-07-19T00:00:00.000Z"
+      "createdAt": "2025-07-22T00:00:00.000Z"
     },
     {
       "id": "43eca42c-7390-4572-9f32-3c69007de18e",
@@ -2750,7 +2750,7 @@
       "actionType": "manager_review",
       "note": "Videlicet tantillus vilis spes.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-07-24T00:00:00.000Z"
+      "createdAt": "2025-07-27T00:00:00.000Z"
     },
     {
       "id": "5f45bce3-cb16-444f-aabf-6c6d2f35c697",
@@ -2758,7 +2758,7 @@
       "actionType": "marketing_push",
       "note": "Coepi demitto aspicio.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-07-29T00:00:00.000Z"
+      "createdAt": "2025-08-01T00:00:00.000Z"
     },
     {
       "id": "609e29a6-b680-4ba0-b5f6-8eb9cd776fb1",
@@ -2766,7 +2766,7 @@
       "actionType": "transfer_requested",
       "note": "Inventore cur utpote.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-09-17T00:00:00.000Z"
+      "createdAt": "2025-09-20T00:00:00.000Z"
     },
     {
       "id": "3d80f847-d432-44c7-9325-f5f72e7bf01b",
@@ -2774,7 +2774,7 @@
       "actionType": "price_reduction_planned",
       "note": "Acer teres appono.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-09-22T00:00:00.000Z"
+      "createdAt": "2025-09-25T00:00:00.000Z"
     },
     {
       "id": "960c0ce6-876e-4e59-8ef8-74f29446f091",
@@ -2782,7 +2782,7 @@
       "actionType": "transfer_requested",
       "note": "Caute comes aiunt cognatus voco vinco conculco.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-01-16T00:00:00.000Z"
+      "createdAt": "2026-01-19T00:00:00.000Z"
     },
     {
       "id": "9e0cf12f-8047-4bbf-9488-62fd7938b8f9",
@@ -2790,7 +2790,7 @@
       "actionType": "wholesale_auction",
       "note": "Creo conor custodia terminatio.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-01-21T00:00:00.000Z"
+      "createdAt": "2026-01-24T00:00:00.000Z"
     },
     {
       "id": "c95c3384-0a87-4f9d-b29d-9b5176d3ff35",
@@ -2798,7 +2798,7 @@
       "actionType": "manager_review",
       "note": "Commemoro est sto certus tabgo admoneo.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-08-16T00:00:00.000Z"
+      "createdAt": "2025-08-19T00:00:00.000Z"
     },
     {
       "id": "06557534-f679-4f3a-8b91-a19b3d0d732f",
@@ -2806,7 +2806,7 @@
       "actionType": "price_reduction_planned",
       "note": "Quam impedit antea clam capitulus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-08-21T00:00:00.000Z"
+      "createdAt": "2025-08-24T00:00:00.000Z"
     },
     {
       "id": "6b356ffc-3154-48cd-ad5a-50b065bc4c47",
@@ -2814,7 +2814,7 @@
       "actionType": "wholesale_auction",
       "note": "Caelestis somniculosus pel veritas aro tantum minus cervus demitto concido.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-09-05T00:00:00.000Z"
+      "createdAt": "2025-09-08T00:00:00.000Z"
     },
     {
       "id": "e9a80374-2854-472e-8db1-ccc1ad9a780a",
@@ -2822,7 +2822,7 @@
       "actionType": "transfer_requested",
       "note": "Impedit appello studio theatrum ascit.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-09-08T00:00:00.000Z"
+      "createdAt": "2025-09-11T00:00:00.000Z"
     },
     {
       "id": "12e871ad-da11-4042-846f-9db1b4a5f44e",
@@ -2830,7 +2830,7 @@
       "actionType": "wholesale_auction",
       "note": "Tubineus voluptatem voluptates aedificium traho sint sit aperiam.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-09-13T00:00:00.000Z"
+      "createdAt": "2025-09-16T00:00:00.000Z"
     },
     {
       "id": "fe705db7-067e-4a48-b1f5-75aab452a09d",
@@ -2838,7 +2838,7 @@
       "actionType": "transfer_requested",
       "note": "Aestus speciosus trado caries curiositas tumultus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-11-29T00:00:00.000Z"
+      "createdAt": "2025-12-02T00:00:00.000Z"
     },
     {
       "id": "e3831edc-0d75-481c-8923-209d009d5594",
@@ -2846,7 +2846,7 @@
       "actionType": "wholesale_auction",
       "note": "Nobis talio spero basium conservo antea aperio spes.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-12-04T00:00:00.000Z"
+      "createdAt": "2025-12-07T00:00:00.000Z"
     },
     {
       "id": "fa21d99c-bd0b-4d4a-85f0-92b237e32c8e",
@@ -2854,7 +2854,7 @@
       "actionType": "wholesale_auction",
       "note": "Aro statua paens temeritas.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-02T00:00:00.000Z"
+      "createdAt": "2026-04-05T00:00:00.000Z"
     },
     {
       "id": "476f4459-4e4e-41ae-a2f7-fa4341216c22",
@@ -2862,7 +2862,7 @@
       "actionType": "price_reduction_planned",
       "note": "Aspernatur vesica trado.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-07T00:00:00.000Z"
+      "createdAt": "2026-04-10T00:00:00.000Z"
     },
     {
       "id": "5a8aaa40-7e9d-4f2b-baff-a3c1ce6a674c",
@@ -2870,7 +2870,7 @@
       "actionType": "manager_review",
       "note": "Utilis tabula casus aegre.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-12T00:00:00.000Z"
+      "createdAt": "2026-04-15T00:00:00.000Z"
     },
     {
       "id": "eab4b06a-2d3a-4691-80e4-df34afe8c2ff",
@@ -2878,7 +2878,7 @@
       "actionType": "marketing_push",
       "note": "Cernuus totam crapula.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-02-10T00:00:00.000Z"
+      "createdAt": "2026-02-13T00:00:00.000Z"
     },
     {
       "id": "5fa62fd4-1019-4e7d-b7bb-25a158f7d6c9",
@@ -2886,7 +2886,7 @@
       "actionType": "transfer_requested",
       "note": "Quod cur arbor aliquid acceptus uterque capillus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-11-21T00:00:00.000Z"
+      "createdAt": "2025-11-24T00:00:00.000Z"
     },
     {
       "id": "b582fdd6-c200-4978-a06b-7b3d933ad64d",
@@ -2894,7 +2894,7 @@
       "actionType": "transfer_requested",
       "note": "Bardus quis contego vulnero denego depereo.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-12-24T00:00:00.000Z"
+      "createdAt": "2025-12-27T00:00:00.000Z"
     },
     {
       "id": "ec7b9737-3e5f-48a8-a261-97c326eb681f",
@@ -2902,7 +2902,7 @@
       "actionType": "marketing_push",
       "note": "Amo vociferor ater socius cariosus sunt tergiversatio.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-02-14T00:00:00.000Z"
+      "createdAt": "2026-02-17T00:00:00.000Z"
     },
     {
       "id": "a9e153f6-ba33-4463-90ef-550ad22c9094",
@@ -2910,7 +2910,7 @@
       "actionType": "wholesale_auction",
       "note": "Cubo vinitor cum ter denuo velit venustas alias video.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-02-19T00:00:00.000Z"
+      "createdAt": "2026-02-22T00:00:00.000Z"
     },
     {
       "id": "c3cd4f02-89a0-4f02-a09e-ad08771a8c72",
@@ -2918,7 +2918,7 @@
       "actionType": "price_reduction_planned",
       "note": "Placeat ars vivo eaque aequus quis casus thymbra toties.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-18T00:00:00.000Z"
+      "createdAt": "2026-03-21T00:00:00.000Z"
     },
     {
       "id": "f87c2881-6dd1-414d-92b1-95c3a3bd2d92",
@@ -2926,7 +2926,7 @@
       "actionType": "price_reduction_planned",
       "note": "Tempore amiculum dicta torrens video doloribus virga facilis.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-23T00:00:00.000Z"
+      "createdAt": "2026-03-26T00:00:00.000Z"
     },
     {
       "id": "6d777dd6-5793-4c75-913f-4274058857f6",
@@ -2934,7 +2934,7 @@
       "actionType": "marketing_push",
       "note": "Tempore basium sui acer curatio tergeo.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-28T00:00:00.000Z"
+      "createdAt": "2026-03-31T00:00:00.000Z"
     },
     {
       "id": "93b0d3d5-b5e2-4271-b3ff-6e84baf4a010",
@@ -2942,7 +2942,7 @@
       "actionType": "manager_review",
       "note": "Dolore coepi argentum cinis coruscus temperantia harum aetas accusamus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-08-26T00:00:00.000Z"
+      "createdAt": "2025-08-29T00:00:00.000Z"
     },
     {
       "id": "16eac751-ec28-47af-9980-120bb2d24354",
@@ -2950,7 +2950,7 @@
       "actionType": "transfer_requested",
       "note": "Adsidue aranea admoveo quidem adopto tubineus doloremque et libero assumenda.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2025-08-31T00:00:00.000Z"
+      "createdAt": "2025-09-03T00:00:00.000Z"
     },
     {
       "id": "5931f0cc-422b-4ace-8b23-d31b6ea1f456",
@@ -2958,7 +2958,7 @@
       "actionType": "transfer_requested",
       "note": "Cui consequatur terebro.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-01-09T00:00:00.000Z"
+      "createdAt": "2026-01-12T00:00:00.000Z"
     },
     {
       "id": "2552cb35-1a1f-4c69-8e82-6daadee18bc9",
@@ -2966,7 +2966,7 @@
       "actionType": "wholesale_auction",
       "note": "Aiunt delectus atavus confero accusamus cubo inventore quaerat.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-17T00:00:00.000Z"
+      "createdAt": "2026-03-20T00:00:00.000Z"
     },
     {
       "id": "ad31d2fd-8f14-4a5e-9189-a45d3d9cb39d",
@@ -2974,7 +2974,7 @@
       "actionType": "manager_review",
       "note": "Aranea cribro virgo comitatus ustilo uxor.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-22T00:00:00.000Z"
+      "createdAt": "2026-03-25T00:00:00.000Z"
     },
     {
       "id": "51b4c77c-6765-48c5-b8a4-4eb9a0988513",
@@ -2982,7 +2982,7 @@
       "actionType": "transfer_requested",
       "note": "Admoveo adfero sunt fugiat dolor carcer.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-27T00:00:00.000Z"
+      "createdAt": "2026-03-30T00:00:00.000Z"
     },
     {
       "id": "23743aad-614f-49b0-9809-ef87fa173779",
@@ -2990,7 +2990,7 @@
       "actionType": "price_reduction_planned",
       "note": "Triduana sonitus confido videlicet verecundia bellum adflicto.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-03-31T00:00:00.000Z"
+      "createdAt": "2026-04-03T00:00:00.000Z"
     },
     {
       "id": "bdfe9803-7a8b-4491-96cb-f4757dae3d0e",
@@ -2998,7 +2998,7 @@
       "actionType": "marketing_push",
       "note": "Vilicus adiuvo consequuntur umerus crustulum avarus currus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-05T00:00:00.000Z"
+      "createdAt": "2026-04-08T00:00:00.000Z"
     },
     {
       "id": "6ec8f704-62fc-449b-bfe8-c8812840b098",
@@ -3006,7 +3006,7 @@
       "actionType": "transfer_requested",
       "note": "Ipsam turba vulnus.",
       "loggedBy": "Alex Manager",
-      "createdAt": "2026-04-10T00:00:00.000Z"
+      "createdAt": "2026-04-13T00:00:00.000Z"
     }
   ]
 }
