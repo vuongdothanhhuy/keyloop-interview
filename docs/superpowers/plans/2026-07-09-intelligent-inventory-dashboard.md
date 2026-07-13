@@ -79,7 +79,7 @@ The user asked to target the **latest Angular (v22)** and provided `docs/best-pr
 8. **`json-server` pinned to stable `0.17.4`**, not the in-progress `1.0.0-beta.x` rewrite, for reproducibility in a graded submission.
 9. **Zoneless + Vitest are used because they are Angular 22's actual defaults**, not because this plan opted into an experimental feature — confirmed against the CLI's own schematics.
 10. **`NgOptimizedImage` against `picsum.photos` mock images** will emit a soft "unrecognized image loader" advisory in the console; this is expected and left as-is (a real deployment would point `imageUrl` at a CDN with a registered `NgOptimizedImage` loader, or configure a custom one).
-11. **"Log Action" is available on every vehicle, not restricted to aging stock**, even though the PDF's requirement 3 literally says "for each aging vehicle." Added after an external PR review (2026-07-10) raised this as a previously-undecided ambiguity: a manager plausibly wants to log a proactive action before a vehicle crosses the 90-day threshold, and gating the button on `isAging` would only remove flexibility without serving any requirement the assessment evaluates. See `docs/SYSTEM_DESIGN.md`'s "Note on Ambiguity" item 11 for the same resolution.
+11. **"Log Action" is available on every vehicle, not restricted to aging stock**, even though the PDF's requirement 3 literally says "for each aging vehicle." Added after an external PR review (2026-07-10) raised this as a previously-undecided ambiguity: a manager plausibly wants to log a proactive action before a vehicle crosses the 90-day threshold, and gating the button on `isAging` would only remove flexibility without serving any requirement the assessment evaluates. See `SYSTEM_DESIGN.md`'s "Note on Ambiguity" item 11 for the same resolution.
 
 ---
 
@@ -92,9 +92,9 @@ keyloop-interview/
 ├── KeyloopCodingChallange.pdf
 ├── README.md
 ├── CLAUDE.md
+├── SYSTEM_DESIGN.md                         # Part 1 deliverable (Task 21)
 ├── docs/
 │   ├── best-practices.md                    # user-provided Angular/TS style rules (read, not modified)
-│   ├── SYSTEM_DESIGN.md                     # Part 1 deliverable (Task 21)
 │   └── superpowers/plans/2026-07-09-intelligent-inventory-dashboard.md   # this file
 ├── mock-server/
 │   ├── package.json
@@ -3598,11 +3598,11 @@ git commit -m "test: add Playwright critical-path e2e suite over filter/detail/l
 ### Task 21: System Design Document (Part 1 deliverable)
 
 **Files:**
-- Create: `docs/SYSTEM_DESIGN.md`
+- Create: `SYSTEM_DESIGN.md`
 
 **Interfaces:** none (documentation).
 
-- [ ] **Step 1: Write `docs/SYSTEM_DESIGN.md`**
+- [ ] **Step 1: Write `SYSTEM_DESIGN.md`**
 
 Populate with the following required sections (content sourced from this plan):
 
@@ -3626,7 +3626,7 @@ Paste the diagram into a Markdown previewer that supports Mermaid (e.g., GitHub'
 - [ ] **Step 3: Commit**
 
 ```bash
-git add docs/SYSTEM_DESIGN.md
+git add SYSTEM_DESIGN.md
 git commit -m "docs: add System Design Document"
 ```
 
@@ -3648,7 +3648,7 @@ git commit -m "docs: add System Design Document"
 [1 paragraph: what this is, which scenario, frontend-only (Angular 22) + mocked backend (json-server).]
 
 ## Architecture
-[Link to docs/SYSTEM_DESIGN.md; 2-3 sentence summary.]
+[Link to SYSTEM_DESIGN.md; 2-3 sentence summary.]
 
 ## Prerequisites
 - Node.js >= 20.19 (tested on <exact `node -v` output from the dev machine>)
@@ -3703,7 +3703,7 @@ npx playwright test         # critical-path e2e suite (auto-starts both servers 
 [Real narrative: full test suite green, `ng build` production build succeeds, manually exercised the app in a browser for the golden path and edge cases (empty filter results, simulated 503 from the mock server's middleware, exact-90-day boundary vehicle), linted and formatted before each commit.]
 
 ## Assumptions
-[Link to docs/SYSTEM_DESIGN.md#note-on-ambiguity, or paste the 10-item list directly.]
+[Link to SYSTEM_DESIGN.md#note-on-ambiguity, or paste the 10-item list directly.]
 ```
 
 - [ ] **Step 2: Fill in the bracketed narrative sections with the real, specific account of what happened during implementation** (replace every `[...]` with actual prose once Tasks 1–21 have actually been executed).
@@ -3735,7 +3735,7 @@ Expected: all green.
 
 - [ ] **Step 2: Cross-check every PDF deliverable is present**
 
-- [ ] `docs/SYSTEM_DESIGN.md` exists and contains all 8 subsections from Task 21 (architecture diagram, component roles, data flow, tech justifications, **Build for the Future**, observability strategy, GenAI section, Note on Ambiguity) — "Build for the Future" is the PDF's own Part 2 requirement and must be individually checkable, not just implicit in other sections.
+- [ ] `SYSTEM_DESIGN.md` exists and contains all 8 subsections from Task 21 (architecture diagram, component roles, data flow, tech justifications, **Build for the Future**, observability strategy, GenAI section, Note on Ambiguity) — "Build for the Future" is the PDF's own Part 2 requirement and must be individually checkable, not just implicit in other sections.
 - [ ] `README.md` has build/run/test instructions, a dedicated "AI Collaboration Narrative" section, and describes the business-logic test suite.
 - [ ] `app/src/app/features/inventory/domain/*.spec.ts` (Tasks 6–9) + `data-access/*.spec.ts` (Tasks 10–12) constitute "a suite of tests that validate the core business logic."
 - [ ] All 3 Scenario B core requirements are demonstrably met: filterable inventory list (Task 15), aging-stock identification prominently displayed (Tasks 6, 9, 13, 14, 15), persisted actionable insights per aging vehicle (Tasks 11, 12, 19).
