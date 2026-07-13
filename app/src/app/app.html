@@ -1,1 +1,17 @@
-<router-outlet />
+<mat-toolbar class="app-bar">
+  <span class="app-brand">
+    <mat-icon class="app-brand__icon">inventory_2</mat-icon>
+    <span class="app-brand__title">Keyloop Inventory</span>
+  </span>
+  <span class="app-bar__spacer"></span>
+  <span class="app-user">
+    <span class="app-user__meta">
+      <span class="app-user__name">{{ user().name }}</span>
+      <span class="app-user__role">{{ user().role }}</span>
+    </span>
+    <span class="app-user__avatar" aria-hidden="true">{{ initials() }}</span>
+  </span>
+</mat-toolbar>
+<main class="page">
+  <router-outlet />
+</main>

@@ -3,6 +3,8 @@ import { Component, inject, signal } from '@angular/core';
 import { form, FormField, required, submit } from '@angular/forms/signals';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { NewVehicleAction, VEHICLE_ACTION_LABELS, VehicleActionType } from '../../models/vehicle-action.model';
 
 export interface ActionLogDialogData {
@@ -12,27 +14,27 @@ export interface ActionLogDialogData {
 
 @Component({
   selector: 'app-action-log-dialog',
-  imports: [FormField, MatDialogModule, MatButtonModule],
+  imports: [FormField, MatDialogModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   template: `
     <h2 mat-dialog-title>Log an Action</h2>
-    <mat-dialog-content>
-      <label>
-        Action
-        <select [formField]="actionForm.actionType">
+    <mat-dialog-content class="dialog-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Action</mat-label>
+        <select matNativeControl [formField]="actionForm.actionType">
           <option value="">Select an action…</option>
           @for (entry of actionOptions; track entry.value) {
             <option [value]="entry.value">{{ entry.label }}</option>
           }
         </select>
         @if (actionForm.actionType().touched() && actionForm.actionType().errors().length) {
-          <span class="field-error">{{ actionForm.actionType().errors()[0].message }}</span>
+          <mat-error>{{ actionForm.actionType().errors()[0].message }}</mat-error>
         }
-      </label>
+      </mat-form-field>
 
-      <label>
-        Note
-        <textarea [formField]="actionForm.note" rows="3"></textarea>
-      </label>
+      <mat-form-field appearance="outline">
+        <mat-label>Note</mat-label>
+        <textarea matInput [formField]="actionForm.note" rows="3"></textarea>
+      </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button (click)="dialogRef.close()">Cancel</button>
@@ -40,6 +42,14 @@ export interface ActionLogDialogData {
         Save
       </button>
     </mat-dialog-actions>
+  `,
+  styles: `
+    .dialog-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 320px;
+    }
   `,
 })
 export class ActionLogDialog {
