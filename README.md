@@ -6,7 +6,7 @@ This is a submission for Keyloop's technical assessment, Scenario B: **The Intel
 
 ## Architecture
 
-See [`docs/SYSTEM_DESIGN.md`](SYSTEM_DESIGN.md) for the full architecture diagram, component roles, data flow, technology justifications, observability strategy, and documented assumptions.
+See [`SYSTEM_DESIGN.md`](SYSTEM_DESIGN.md) for the full architecture diagram, component roles, data flow, technology justifications, observability strategy, and documented assumptions.
 
 In short: a zoneless Angular 22 SPA talks over real HTTP (through a dev-server proxy) to a local `json-server` instance. All "intelligence" — aging-stock detection, filtering, KPI aggregation — lives in pure, framework-free TypeScript functions, unit-tested directly. A single plain-signals `VehicleStore` is the app's only source of truth; every UI component reads from it and no component ever calls an HTTP service directly.
 
@@ -92,7 +92,7 @@ The full test suite (19 files, 86 unit/component tests) passes, the Playwright c
 
 ## Assumptions
 
-See [`docs/SYSTEM_DESIGN.md#note-on-ambiguity`](SYSTEM_DESIGN.md#note-on-ambiguity) for the full list of 10 documented assumptions made where the assessment brief was intentionally underspecified (aging threshold semantics, single-dealership scope, mocked authentication, and others).
+See [`SYSTEM_DESIGN.md#note-on-ambiguity`](SYSTEM_DESIGN.md#note-on-ambiguity) for the full list of 10 documented assumptions made where the assessment brief was intentionally underspecified (aging threshold semantics, single-dealership scope, mocked authentication, and others).
 
 ## Known Issues
 
